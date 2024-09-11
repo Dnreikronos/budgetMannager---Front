@@ -1,11 +1,22 @@
 import { useState } from "react";
+import LoginPage from "../pages/LoginPage";
+import ReadBudgetPage from "../pages/ReadBudget";
+import ReadBillsPage from "../pages/ReadBills";
+import { Link } from "react-router-dom";
+
+interface MenuItem {
+  title: string;
+  src: string;
+  path: string;
+  element: React.ReactElement;
+}
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
-  const Menus = [
-    { title: "Dashboard", src: "Chart_fill" },
-    { title: "Budget", src: "budget" },
-    { title: "Bills", src: "bills" },
+  const Menus: MenuItem[] = [
+    { title: "Dashboard", src: "Chart_fill", path: "/LoginPage", element: <LoginPage /> },
+    { title: "Budget", src: "budget", path: "/ReadBudget", element: <ReadBudgetPage /> },
+    { title: "Bills", src: "bills", path: "/ReadBills", element: <ReadBillsPage/> },
   ];
 
   return (
@@ -40,15 +51,17 @@ const Sidebar = () => {
           {Menus.map((Menu, index) => (
             <li
               key={index}
-              className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 top-11 text-sm items-center  gap-x-4
+              className={`flex  rounded-md p-2 cursor-pointer hover:bg-white text-gray-300 top-11 text-sm items-center  gap-x-4
               ${Menu.gap ? "mt-9" : "mt-5"} ${
                 index === 0 && "bg-light-white"
               } `}
             >
-              <img src={`./src/assets/${Menu.src}.png`} />
-              <span className={`${!open && "hidden"} origin-left duration-200`}>
-                {Menu.title}
-              </span>
+               <Link to={Menu.path} className="flex items-center w-full h-full -right-4">
+                <img src={`./src/assets/${Menu.src}.png`} />
+                <span className={`${!open && 'hidden'} origin-left duration-200`}>
+                  {Menu.title}
+                </span>
+              </Link>
             </li>
           ))}
         </ul>
