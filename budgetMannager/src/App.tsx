@@ -22,7 +22,7 @@ function App() {
     },
     {
       path: "ReadUserPage",
-      element: <ReadBillsPage />,
+      element: <ReadUserPage />,
       errorElement: <NotFoundPage />,
     },
     {

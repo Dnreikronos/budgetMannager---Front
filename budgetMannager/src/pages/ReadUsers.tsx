@@ -1,10 +1,11 @@
 import Sidebar from "../components/sidebar";
 
 const ReadUsers = () => {
-  <>s
+  return (
+    <>
       <Sidebar />
-  </>
-}
-
+    </>
+  );
+};
 
 export default ReadUsers;
