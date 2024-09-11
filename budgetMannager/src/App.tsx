@@ -21,7 +21,7 @@ function App() {
       element: <NotFoundPage />,
     },
     {
-      path: "/ReadBills",
+      path: "ReadUserPage",
       element: <ReadBillsPage />,
       errorElement: <NotFoundPage />,
     },
@@ -41,8 +41,8 @@ function App() {
       errorElement: <NotFoundPage />,
     },
     {
-      path: "/ReadUsers",
-      element: <ReadUserPage />,
+      path: "/ReadBills",
+      element: <ReadBillsPage/>,
       errorElement: <NotFoundPage />,
     },
   ]);
