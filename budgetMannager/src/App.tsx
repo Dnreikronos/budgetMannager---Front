@@ -1,11 +1,12 @@
 import { useState } from "react";
-import ReadBudgetPage from "./pages/ReadBudget.tsx";
-import CadBudgetPage from "./pages/CadBudget.tsx";
-import ReadBillsPage from "./pages/ReadBills.tsx";
-import CadBillsPage from "./pages/CadBills.tsx";
-import LoginPage from "./pages/LoginPage.tsx";
-import NotFoundPage from "./pages/NotFoundPage.tsx";
+import ReadBudgetPage from "./pages/Budget/ReadBudget.tsx";
+import CadBudgetPage from "./pages/Budget/CadBudget.tsx";
+import ReadBillsPage from "./pages/Bills/ReadBills.tsx";
+import CadBillsPage from "./pages/Bills/CadBills.tsx";
+import LoginPage from "./pages/Login/LoginPage.tsx";
+import NotFoundPage from "./pages/NotFoud/NotFoundPage.tsx";
 import ReadUserPage from "./pages/ReadUsers.tsx";
+import DasboardsPage from "../src/pages/Dashboards/Dashboards.tsx"
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 
@@ -43,6 +44,11 @@ function App() {
     {
       path: "/ReadBills",
       element: <ReadBillsPage/>,
+      errorElement: <NotFoundPage />,
+    },
+    {
+      path: "/Dashboards",
+      element: <DasboardsPage />,
       errorElement: <NotFoundPage />,
     },
   ]);
