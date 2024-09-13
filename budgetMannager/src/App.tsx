@@ -13,7 +13,7 @@ import "./index.css";
 function App() {
   const router = createBrowserRouter([
     {
-      path: "/LoginPage",
+      path: "/",
       element: <LoginPage />,
       errorElement: <NotFoundPage />,
     },
