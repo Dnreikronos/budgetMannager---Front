@@ -1,7 +1,7 @@
 import { useState } from "react";
-import LoginPage from "../pages/LoginPage";
-import ReadBudgetPage from "../pages/ReadBudget";
-import ReadBillsPage from "../pages/ReadBills";
+import DasboardsPage from "../pages/Dashboards/Dashboards.tsx";
+import ReadBudgetPage from "../pages/Budget/ReadBudget.tsx";
+import ReadBillsPage from "../pages/Bills/ReadBills.tsx";
 import { Link } from "react-router-dom";
 
 interface MenuItem {
@@ -14,9 +14,9 @@ interface MenuItem {
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const Menus: MenuItem[] = [
-    { title: "Dashboard", src: "Chart_fill", path: "/LoginPage", element: <LoginPage /> },
+    { title: "Dashboard", src: "Chart_fill", path: "/Dashboards", element: <DasboardsPage /> },
     { title: "Budget", src: "budget", path: "/ReadBudget", element: <ReadBudgetPage /> },
-    { title: "Bills", src: "bills", path: "/ReadBills", element: <ReadBillsPage/> },
+    { title: "Bills", src: "bills", path: "/ReadBills", element: <ReadBillsPage/>  },
   ];
 
   return (

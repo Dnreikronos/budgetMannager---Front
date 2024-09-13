@@ -1,9 +1,9 @@
-import Sidebar from "../components/sidebar";
+
 
 const LoginPage = () => {
   return (
   <>
-    <Sidebar />
+    
   </>
   );
 };
