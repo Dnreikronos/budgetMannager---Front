@@ -1,7 +1,7 @@
 import { useState } from "react";
-import DasboardsPage from "../pages/Dashboards/Dashboards.tsx";
-import ReadBudgetPage from "../pages/Budget/ReadBudget.tsx";
-import ReadBillsPage from "../pages/Bills/ReadBills.tsx";
+import DasboardsPage from "../../pages/Dashboards/Dashboards.tsx";
+import ReadBudgetPage from "../../pages/Budget/ReadBudget.tsx";
+import ReadBillsPage from "../../pages/Bills/ReadBills.tsx";
 import { Link } from "react-router-dom";
 
 interface MenuItem {
