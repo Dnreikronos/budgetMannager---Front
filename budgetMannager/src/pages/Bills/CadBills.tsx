@@ -1,4 +1,4 @@
-import Sidebar from '../../components/sidebar.tsx';
+import Sidebar from '../../components/ui/sidebar.tsx';
 
 const CadBillsPage = () => {
   return (
