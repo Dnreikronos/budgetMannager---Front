@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import { Button } from "../../components/ui/button";
 import { Textarea } from "../../components/ui/textarea";
 
 const LoginPage = () => {
@@ -10,7 +12,7 @@ const LoginPage = () => {
             <div className="flex items-center justify-center mr-96">
               <Textarea />
             </div>
-            <h1>User E-mail</h1>
+            <h1>E-mail</h1>
             <div className="flex items-center justify-center mr-96">
               <Textarea />
             </div>
@@ -18,6 +20,9 @@ const LoginPage = () => {
             <div className="flex items-center justify-center mr-96">
               <Textarea />
             </div>
+            <Button className="mt-5">
+              <Link to="/Dashboards"> Login</Link>
+            </Button>
           </div>
         </div>
       </body>
