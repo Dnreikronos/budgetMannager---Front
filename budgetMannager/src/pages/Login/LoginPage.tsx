@@ -21,7 +21,10 @@ const LoginPage = () => {
               <Textarea />
             </div>
             <Button className="mt-5">
-              <Link to="/Dashboards"> Login</Link>
+              <Link to="/Dashboards">Login</Link>
+            </Button>
+            <Button className="mt-5">
+              <Link to="/">Register</Link>
             </Button>
           </div>
         </div>
