@@ -15,12 +15,6 @@ const LoginPage = () => {
         <h1 className="text-2xl font-bold text-center mb-6">Login</h1>
         <form className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="username">
-              Username
-            </label>
-            <Textarea id="username" className="w-full border-gray-300 rounded-md shadow-sm" />
-          </div>
-          <div>
             <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">
               E-mail
             </label>
@@ -37,7 +31,7 @@ const LoginPage = () => {
               <Link to="/Dashboards" className="block text-center">Login</Link>
             </Button>
             <Button className="w-full bg-green-500 text-white hover:bg-green-600 focus:ring-2 focus:ring-green-500 rounded-md">
-              <Link to="/registerUser" className="block text-center">Register</Link>
+              <Link to="/RegisterPage" className="block text-center">Register</Link>
             </Button>
           </div>
         </form>
