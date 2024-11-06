@@ -37,7 +37,7 @@ const LoginPage = () => {
               <Link to="/Dashboards" className="block text-center">Login</Link>
             </Button>
             <Button className="w-full bg-green-500 text-white hover:bg-green-600 focus:ring-2 focus:ring-green-500 rounded-md">
-              <Link to="/" className="block text-center">Register</Link>
+              <Link to="/registerUser" className="block text-center">Register</Link>
             </Button>
           </div>
         </form>
