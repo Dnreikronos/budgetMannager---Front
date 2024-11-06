@@ -9,7 +9,6 @@ const LoginPage = () => {
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url('https://th.bing.com/th/id/OIG4.ljwUKjU3HwkN8x7lO614?pid=ImgGn')` }}
       >
-        {/* Add a semi-transparent overlay to improve text visibility */}
         <div className="absolute inset-0 bg-black opacity-50"></div>
       </div>
       <div className="relative bg-white p-8 rounded-lg shadow-lg border border-gray-200 w-full max-w-md">
