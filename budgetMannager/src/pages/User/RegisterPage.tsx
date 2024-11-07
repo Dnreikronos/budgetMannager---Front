@@ -37,8 +37,10 @@ const handleSubmit = async (e: FormEvent) => {
 		trow new Error("Failed to register");
 	}
 
-
-
+	navigate("/login");
+	}catch (err) {
+		setError((err as Error).message);
+	}
 };
 
   return (
