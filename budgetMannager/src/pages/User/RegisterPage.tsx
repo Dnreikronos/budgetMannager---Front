@@ -18,8 +18,28 @@ const RegisterPage = () => {
 const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 	const { id, value } = e.target;
 	setFormData((prevData) => ({ ...prevData, [id]: value }));
-};}	
 
+};	
+
+
+const handleSubmit = async (e: FormEvent) => {
+	e.preventDefault();
+	try {
+		const response = await fetch("http://localhost:9090/register", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON,stringify(formData),
+	)};
+
+	if (!reponse.ok) {
+		trow new Error("Failed to register");
+	}
+
+
+
+};
 
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-gray-100">
