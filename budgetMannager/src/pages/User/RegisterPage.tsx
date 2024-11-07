@@ -2,8 +2,25 @@ import { Link } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 import { Textarea } from "../../components/ui/textarea";
 
+interface FormData {
+  username: string;
+  email : string;
+  password: string;
+}
 
 const RegisterPage = () => {
+  	const [formData, setFormData] = useState<FormData>({username: "", email: "", password: ""});
+  	const [error, setError] = useState<string> | null>(null);
+  	const navitage = useNavigate();
+
+
+
+const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+	const { id, value } = e.target;
+	setFormData((prevData) => ({ ...prevData, [id]: value }));
+};}	
+
+
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-gray-100">
       <div
