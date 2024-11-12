@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import DasboardsPage from "../../pages/Dashboards/Dashboards.tsx";
 import ReadBudgetPage from "../../pages/Budget/ReadBudget.tsx";
 import ReadBillsPage from "../../pages/Bills/ReadBills.tsx";
-import { Link } from "react-router-dom";
+import { HomeIcon, CurrencyDollarIcon, DocumentTextIcon } from '@heroicons/react/24/solid';
 
 interface MenuItem {
   title: string;
@@ -13,60 +14,89 @@ interface MenuItem {
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
+  const location = useLocation();
+
   const Menus: MenuItem[] = [
     { title: "Dashboard", src: "Chart_fill", path: "/Dashboards", element: <DasboardsPage /> },
     { title: "Budget", src: "budget", path: "/ReadBudget", element: <ReadBudgetPage /> },
-    { title: "Bills", src: "bills", path: "/ReadBills", element: <ReadBillsPage/>  },
+    { title: "Bills", src: "bills", path: "/ReadBills", element: <ReadBillsPage /> },
   ];
 
   return (
     <div className="flex">
       <div
-        className={` ${
-          open ? "w-72" : "w-20 "
-        } bg-black h-screen p-4  pt-8 relative duration-300`}
+        className={`${
+          open ? "w-72" : "w-20"
+        } bg-gray-800 text-white h-screen p-6 pt-8 relative transition-all duration-300 ease-in-out shadow-md rounded-r-3xl`}
       >
-        <img
-          src="./src/assets/control.png"
-          className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
-           border-2 rounded-full  ${!open && "rotate-180"}`}
+        <button
+          aria-label="Toggle Sidebar"
+          className={`absolute cursor-pointer -right-3 top-9 w-8 h-8 border-2 border-white bg-gray-600 rounded-full transform transition-transform ${
+            !open ? "rotate-180" : ""
+          }`}
           onClick={() => setOpen(!open)}
-        />
-        <div className="flex gap-x-4 items-center">
+        >
+          <img
+            src="./src/assets/control.png"
+            alt="Toggle Sidebar"
+            className="w-5 h-5 m-auto"
+          />
+        </button>
+
+        <div className="flex gap-x-4 items-center mb-8">
           <img
             src="./src/assets/logo.png"
-            className={`cursor-pointer duration-500 ${
-              open && "rotate-[360deg]"
-            }`}
+            alt="Logo"
+            className={`cursor-pointer transition-transform duration-500 ${open ? "rotate-[360deg]" : ""}`}
           />
           <h1
-            className={`text-white origin-left font-medium text-xl duration-200 ${
-              !open && "scale-0"
+            className={`text-2xl font-semibold origin-left transition-transform duration-200 ${
+              !open ? "scale-0" : "scale-100"
             }`}
           >
-            Budget Mannager
+            Budget Manager
           </h1>
         </div>
+
         <ul className="pt-6">
-          {Menus.map((Menu, index) => (
-            <li
-              key={index}
-              className={`flex  rounded-md p-2 cursor-pointer hover:bg-white text-gray-300 top-11 text-sm items-center  gap-x-4
-              ${Menu.gap ? "mt-9" : "mt-5"} ${
-                index === 0 && "bg-light-white"
-              } `}
-            >
-               <Link to={Menu.path} className="flex items-center w-full h-full -right-4">
-                <img src={`./src/assets/${Menu.src}.png`} />
-                <span className={`${!open && 'hidden'} origin-left duration-200`}>
-                  {Menu.title}
-                </span>
-              </Link>
-            </li>
-          ))}
+          {Menus.map((menu, index) => {
+            const isActive = location.pathname === menu.path;
+
+            return (
+              <li
+                key={index}
+                className={`flex items-center gap-x-4 rounded-md p-2 cursor-pointer hover:bg-gray-700 hover:text-white transition-colors duration-200 relative mt-6 ${
+                  isActive ? "bg-gray-600" : ""
+                }`}
+              >
+                <Link to={menu.path} className="flex items-center w-full">
+                  {/* Icons */}
+                  {menu.title === 'Dashboard' && <HomeIcon className="w-6 h-6 text-white" />}
+                  {menu.title === 'Budget' && <CurrencyDollarIcon className="w-6 h-6 text-white" />}
+                  {menu.title === 'Bills' && <DocumentTextIcon className="w-6 h-6 text-white" />}
+
+                  <span
+                    className={`ml-4 text-lg font-medium transition-all duration-200 ${
+                      !open ? "opacity-0" : "opacity-100"
+                    }`}
+                  >
+                    {menu.title}
+                  </span>
+                </Link>
+
+                <span
+                  className={`absolute top-0 left-0 w-1 h-full bg-gray-500 rounded-l-md transform transition-all duration-300 ease-in-out ${
+                    isActive ? "scale-100" : "scale-0"
+                  }`}
+                ></span>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>
   );
 };
+
 export default Sidebar;
+
