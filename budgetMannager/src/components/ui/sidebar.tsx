@@ -70,15 +70,12 @@ const Sidebar = () => {
                 }`}
               >
                 <Link to={menu.path} className="flex items-center w-full">
-                  {/* Icons */}
                   {menu.title === 'Dashboard' && <HomeIcon className="w-6 h-6 text-white" />}
                   {menu.title === 'Budget' && <CurrencyDollarIcon className="w-6 h-6 text-white" />}
                   {menu.title === 'Bills' && <DocumentTextIcon className="w-6 h-6 text-white" />}
 
                   <span
-                    className={`ml-4 text-lg font-medium transition-all duration-200 ${
-                      !open ? "opacity-0" : "opacity-100"
-                    }`}
+                    className={`ml-4 text-lg font-medium transition-all duration-200 ${!open ? "hidden" : ""}`}
                   >
                     {menu.title}
                   </span>
