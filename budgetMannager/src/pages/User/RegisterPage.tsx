@@ -40,7 +40,7 @@ const RegisterPage = () => {
         return;
       }
 
-      navigate("/login");
+      navigate("/");
 
     } catch (err) {
       setError("An error occurred. Please try again.");
