@@ -16,12 +16,6 @@ const RegisterPage = () => {
         <h1 className="text-2xl font-bold text-center mb-6">Register</h1>
         <form className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="username">
-              Username
-            </label>
-            <Textarea id="username" className="w-full border-gray-300 rounded-md shadow-sm" />
-          </div>
-          <div>
             <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">
               E-mail
             </label>
