@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import DasboardsPage from "../../pages/Dashboards/Dashboards.tsx";
 import ReadBudgetPage from "../../pages/Budget/ReadBudget.tsx";
 import ReadBillsPage from "../../pages/Bills/ReadBills.tsx";
-import { HomeIcon, CurrencyDollarIcon, DocumentTextIcon } from '@heroicons/react/24/solid';
+import { HomeIcon, CurrencyDollarIcon, DocumentTextIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid'; 
 
 interface MenuItem {
   title: string;
@@ -15,6 +15,7 @@ interface MenuItem {
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const location = useLocation();
+  const navigate = useNavigate(); 
 
   const Menus: MenuItem[] = [
     { title: "Dashboard", src: "Chart_fill", path: "/Dashboards", element: <DasboardsPage /> },
@@ -22,12 +23,18 @@ const Sidebar = () => {
     { title: "Bills", src: "bills", path: "/ReadBills", element: <ReadBillsPage /> },
   ];
 
+  const handleSignOut = () => {
+    localStorage.removeItem("authToken");
+
+    navigate("/"); 
+  };
+
   return (
     <div className="flex">
       <div
         className={`${
           open ? "w-72" : "w-20"
-        } bg-gray-800 text-white h-screen p-6 pt-8 relative transition-all duration-300 ease-in-out shadow-md rounded-r-3xl`}
+        } bg-gray-800 text-white h-screen p-6 pt-8 relative flex flex-col transition-all duration-300 ease-in-out shadow-md rounded-r-3xl`}
       >
         <button
           aria-label="Toggle Sidebar"
@@ -58,7 +65,7 @@ const Sidebar = () => {
           </h1>
         </div>
 
-        <ul className="pt-6">
+        <ul className="pt-6 flex-grow">
           {Menus.map((menu, index) => {
             const isActive = location.pathname === menu.path;
 
@@ -90,6 +97,18 @@ const Sidebar = () => {
             );
           })}
         </ul>
+
+        <div className="mt-auto"> 
+          <button
+            onClick={handleSignOut}
+            className="flex items-center gap-x-4 w-full p-2 mt-6 text-white hover:bg-red-600 hover:text-white rounded-md transition-colors duration-200"
+          >
+            <ArrowRightOnRectangleIcon className="w-6 h-6 text-white" /> 
+            <span className="ml-4 text-lg font-medium transition-all duration-200">
+              Sign Out
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   );
