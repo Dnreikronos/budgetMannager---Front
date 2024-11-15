@@ -6,8 +6,18 @@ import CadBillsPage from "./pages/Bills/CadBills.tsx";
 import LoginPage from "./pages/User/LoginPage.tsx";
 import RegisterPage from "./pages/User/RegisterPage.tsx";
 import DasboardsPage from "../src/pages/Dashboards/Dashboards.tsx"
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Route, Navigate} from "react-router-dom";
 import "./index.css";
+
+const PrivateRoute = ({ element }: { element: JSX.Element }) => {
+  const isAuthenticated = localStorage.getItem("authToken");
+
+  if (!isAuthenticated) {
+    return <Navigate to="/" />;
+  }
+  return element;
+};
+
 
 function App() {
   const router = createBrowserRouter([
@@ -21,25 +31,26 @@ function App() {
     },
     {
       path: "/CadBills",
-      element: <CadBillsPage />,
+      element: <PrivateRoute element={<CadBillsPage />} />,
     },
     {
       path: "/ReadBudget",
-      element: <ReadBudgetPage />,
+      element: <PrivateRoute element={<ReadBudgetPage />} />,
     },
     {
       path: "/CadBudget",
-      element: <CadBudgetPage />,
+      element: <PrivateRoute element={<CadBudgetPage />} />,
     },
     {
       path: "/ReadBills",
-      element: <ReadBillsPage/>,
+      element: <PrivateRoute element={<ReadBillsPage />} />,
     },
     {
       path: "/Dashboards",
-      element: <DasboardsPage />,
+      element: <PrivateRoute element={<DasboardsPage />} />,
     },
   ]);
+
 
   return (
     <>
