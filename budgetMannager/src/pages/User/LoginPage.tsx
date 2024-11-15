@@ -1,15 +1,52 @@
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 import { Textarea } from "../../components/ui/textarea";
 
 const LoginPage = () => {
-  const [email, setEmail]  = useState("");
-  const [password, setPassword] =  useState("");
-  const [errorMessage, setErrorMessage] = useState<string | null >(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(""); 
 
+    const payload = { email, password };
 
+    try {
+      
+      const response = await fetch("http://localhost:9090/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+           if (!response.ok) {
+        setError(data.error || "Login failed");
+        setIsLoading(false);
+        return;
+      }
+
+      const { token } = data;
+      localStorage.setItem("authToken", token);
+
+      
+      navigate("/Dashboards");
+
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+      setIsLoading(false);
+    }
+  };
+  
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-gray-100">
       <div
