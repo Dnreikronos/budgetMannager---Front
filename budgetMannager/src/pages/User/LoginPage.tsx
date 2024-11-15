@@ -3,6 +3,13 @@ import { Button } from "../../components/ui/button";
 import { Textarea } from "../../components/ui/textarea";
 
 const LoginPage = () => {
+  const [email, setEmail]  = useState("");
+  const [password, setPassword] =  useState("");
+  const [errorMessage, setErrorMessage] = useState<string | null >(null);
+  const navigate = useNavigate();
+
+
+
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-gray-100">
       <div
