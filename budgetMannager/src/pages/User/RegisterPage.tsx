@@ -49,12 +49,9 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="relative flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="relative flex items-center bg-gray-500 justify-center min-h-screen bg-gray-100">
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url('https://plus.unsplash.com/premium_photo-1679784204551-013181bb687f?q=80&w=1860&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`
-        }}
       >
         <div className="absolute inset-0 bg-black opacity-70"></div>
       </div>
