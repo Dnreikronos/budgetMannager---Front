@@ -42,6 +42,10 @@ const CadBills = () => {
     }
   };
 
+  const handleCancel = () => {
+    navigate("/ReadBills");
+  };
+
   return (
     <div className="flex h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
       <Sidebar />
@@ -114,7 +118,7 @@ const CadBills = () => {
               </select>
             </div>
 
-            <div>
+            <div className="flex items-center justify-between space-x-4">
               <button
                 type="submit"
                 disabled={loading}
@@ -126,6 +130,14 @@ const CadBills = () => {
               >
                 {loading ? "Saving..." : "Save Bill"}
               </button>
+
+              <button
+                type="button"
+                onClick={handleCancel}
+                className="w-full px-4 py-2 font-medium text-gray-700 border border-gray-300 rounded hover:bg-gray-100 transition duration-150"
+              >
+                Cancel
+              </button>
             </div>
           </form>
         </div>
@@ -135,4 +147,154 @@ const CadBills = () => {
 };
 
 export default CadBills;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
