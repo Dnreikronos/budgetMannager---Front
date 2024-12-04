@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import DasboardsPage from "../../pages/Dashboards/Dashboards.tsx";
 import ReadBudgetPage from "../../pages/Budget/ReadBudget.tsx";
 import ReadBillsPage from "../../pages/Bills/ReadBills.tsx";
-import { HomeIcon, CurrencyDollarIcon, DocumentTextIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid'; 
+import { HomeIcon, CurrencyDollarIcon, DocumentTextIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid';
 
 interface MenuItem {
   title: string;
@@ -15,7 +15,7 @@ interface MenuItem {
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const location = useLocation();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const Menus: MenuItem[] = [
     { title: "Dashboard", src: "Chart_fill", path: "/Dashboards", element: <DasboardsPage /> },
@@ -25,8 +25,7 @@ const Sidebar = () => {
 
   const handleSignOut = () => {
     localStorage.removeItem("authToken");
-
-    navigate("/"); 
+    navigate("/");
   };
 
   return (
@@ -77,9 +76,9 @@ const Sidebar = () => {
                 }`}
               >
                 <Link to={menu.path} className="flex items-center w-full">
-                  {menu.title === 'Dashboard' && <HomeIcon className="w-6 h-6 text-white" />}
-                  {menu.title === 'Budget' && <CurrencyDollarIcon className="w-6 h-6 text-white" />}
-                  {menu.title === 'Bills' && <DocumentTextIcon className="w-6 h-6 text-white" />}
+                  {menu.title === "Dashboard" && <HomeIcon className="w-6 h-6 text-white" />}
+                  {menu.title === "Budget" && <CurrencyDollarIcon className="w-6 h-6 text-white" />}
+                  {menu.title === "Bills" && <DocumentTextIcon className="w-6 h-6 text-white" />}
 
                   <span
                     className={`ml-4 text-lg font-medium transition-all duration-200 ${!open ? "hidden" : ""}`}
@@ -98,15 +97,17 @@ const Sidebar = () => {
           })}
         </ul>
 
-        <div className="mt-auto"> 
+        <div className="mt-auto">
           <button
             onClick={handleSignOut}
             className="flex items-center gap-x-4 w-full p-2 mt-6 text-white hover:bg-red-600 hover:text-white rounded-md transition-colors duration-200"
           >
-            <ArrowRightOnRectangleIcon className="w-6 h-6 text-white" /> 
-            <span className="ml-4 text-lg font-medium transition-all duration-200">
-              Sign Out
-            </span>
+            <ArrowRightOnRectangleIcon className="w-6 h-6 text-white" />
+            {open && (
+              <span className="ml-4 text-lg font-medium transition-all duration-200">
+                Sign Out
+              </span>
+            )}
           </button>
         </div>
       </div>
