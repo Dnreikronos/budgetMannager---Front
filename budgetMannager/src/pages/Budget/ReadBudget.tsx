@@ -55,7 +55,7 @@ const ReadBudgetPage = () => {
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-gray-800">Budgets List</h1>
           <button
-            onClick={() => navigate("/CreateBudget")}
+            onClick={() => navigate("/CadBudget")}
             className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg shadow-md hover:bg-indigo-700 transition duration-150"
           >
             Insert Budget
