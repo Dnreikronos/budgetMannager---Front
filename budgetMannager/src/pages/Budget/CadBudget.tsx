@@ -2,7 +2,7 @@ import Sidebar from "../../components/ui/sidebar.tsx";
 
 
 
-const CadBillsPage = () => {
+const CadBudget = () => {
   return (
   <>
     <Sidebar />
@@ -10,4 +10,4 @@ const CadBillsPage = () => {
   );
 };
 
-export default CadBillsPage;
+export default CadBudget;
