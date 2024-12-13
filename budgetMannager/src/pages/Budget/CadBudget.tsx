@@ -25,6 +25,15 @@ const CadBudget = () => {
 			start,
 			end,
 		};
+
+		try {
+			const response = await fetch("http://localhost:9090/CreateBudget", {
+				method: "POST",
+				headers: {"Content-Type": "application/json"},
+				body: JSON.stringify(budgetData),
+			});
+
+		}
 	}
 }
 
