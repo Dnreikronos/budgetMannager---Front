@@ -29,13 +29,26 @@ const CadBudget = () => {
 		try {
 			const response = await fetch("http://localhost:9090/CreateBudget", {
 				method: "POST",
-				headers: {"Content-Type": "application/json"},
+				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(budgetData),
 			});
 
+			if (!response.ok) {
+				const errorText = await response.text();
+				throw new Error(errorText || "Failed to create budget");
+			}
+
+			navigate("/ReadBudgets");
+		} catch (err: any) {
+			setError(err.message || "An unexpected error occurred.");
+		} finally {
+			setLoading(false);
 		}
-	}
-}
+	};
+
+	const handleCancel = () => {
+		navigate("/ReadBudgets");
+	};
 
 
 return (
