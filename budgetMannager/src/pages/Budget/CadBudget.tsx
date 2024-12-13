@@ -19,13 +19,21 @@ const CadBudget = () => {
 		setLoading(true);
 		setError(null);
 
+		const budgetData = {
+			value: Number(value),
+			currency,
+			start,
+			end,
+		};
 	}
-	}
-	return (
-		<>
-			<Sidebar />
-		</>
-	);
+}
+
+
+return (
+	<>
+		<Sidebar />
+	</>
+);
 };
 
 export default CadBudget;
