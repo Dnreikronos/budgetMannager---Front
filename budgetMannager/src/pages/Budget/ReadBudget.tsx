@@ -24,6 +24,7 @@ const ReadBudgetPage = () => {
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	const [pageSize] = useState<number>(5);
 
+	const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
 	const navigate = useNavigate();
 
 	useEffect(() => {
