@@ -34,12 +34,25 @@ const ReadBudgetPage = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  const columns: ColumnDef<Budget>[] = [
-    { accessorKey: "value", header: "Value" },
-    { accessorKey: "currency", header: "Currency" },
-    { accessorKey: "start", header: "Start" },
-    { accessorKey: "end", header: "End" },
-  ];
+  const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat("en-GB", { year: "numeric", month: "2-digit", day: "2-digit" }).format(date);
+};
+
+const columns: ColumnDef<Budget>[] = [
+  { accessorKey: "value", header: "Value" },
+  { accessorKey: "currency", header: "Currency" },
+  {
+    accessorKey: "start",
+    header: "Start",
+    cell: ({ row }) => <span>{formatDate(row.original.start)}</span>,
+  },
+  {
+    accessorKey: "end",
+    header: "End",
+    cell: ({ row }) => <span>{formatDate(row.original.end)}</span>,
+  },
+];
 
   return (
     <div className="flex h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
