@@ -46,12 +46,9 @@ const ReadBudgetPage = () => {
 
   return (
     <div className="flex h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
-      {/* Sidebar */}
       <Sidebar />
 
-      {/* Main Content */}
       <div className="flex-1 p-6 overflow-y-auto">
-        {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-gray-800">Budgets List</h1>
           <button
@@ -62,7 +59,6 @@ const ReadBudgetPage = () => {
           </button>
         </div>
 
-        {/* Table Section */}
         <div className="bg-white shadow-lg rounded-lg p-6">
           {loading ? (
             <div className="text-center py-12">
