@@ -25,7 +25,7 @@ const ReadBudgetPage = () => {
 	const [pageSize] = useState<number>(5);
 
 	const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
-	const [currentBudget, setCuurrentBudget] = useState<Budget | null>(null); 
+	const [currentBudget, setCuurrentBudget] = useState<Budget | null>(null);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -70,34 +70,34 @@ const ReadBudgetPage = () => {
 
 	const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (currentBudget) {
-			setCuurrentBudget({ ...currentBudget, [e.target.name]: e.target.value})
+			setCuurrentBudget({ ...currentBudget, [e.target.name]: e.target.value })
 		}
 	}
 
-	  const handleSaveEdit = () => {
-    if (currentBudget) {
-      fetch(`http://localhost:9090/Budget/${currentBudget.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(currentBudget),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to update budget");
-          }
-          setBudgets(
-            budgets.map((b) => (b.id === currentBudget.id ? currentBudget : b))
-          );
-          setFilteredBudgets(
-            filteredBudgets.map((b) =>
-              b.id === currentBudget.id ? currentBudget : b
-            )
-          );
-          setEditModalOpen(false);
-        })
-        .catch((error) => console.error("Error updating budget:", error));
-    }
-  };
+	const handleSaveEdit = () => {
+		if (currentBudget) {
+			fetch(`http://localhost:9090/Budget/${currentBudget.id}`, {
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(currentBudget),
+			})
+				.then((response) => {
+					if (!response.ok) {
+						throw new Error("Failed to update budget");
+					}
+					setBudgets(
+						budgets.map((b) => (b.id === currentBudget.id ? currentBudget : b))
+					);
+					setFilteredBudgets(
+						filteredBudgets.map((b) =>
+							b.id === currentBudget.id ? currentBudget : b
+						)
+					);
+					setEditModalOpen(false);
+				})
+				.catch((error) => console.error("Error updating budget:", error));
+		}
+	};
 
 	const totalItems = filteredBudgets.length;
 	const totalPages = Math.ceil(totalItems / pageSize);
@@ -123,6 +123,19 @@ const ReadBudgetPage = () => {
 			accessorKey: "end",
 			header: "End",
 			cell: ({ row }) => <span>{formatDate(row.original.end)}</span>,
+		},
+		{
+			header: "Actions",
+			cell: ({ row }) => (
+				<div className="flex gap-2">
+					<button
+						onClick={() => openEditModal(row.original)}
+						className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+					>
+						Edit
+					</button>
+				</div>
+			),
 		},
 	];
 
