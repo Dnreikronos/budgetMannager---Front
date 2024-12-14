@@ -99,6 +99,18 @@ const ReadBudgetPage = () => {
 		}
 	};
 
+	const handleDelete = (id: string) => {
+		fetch(`http://localhost:9090/Budget/${id}`, { method: "DELETE" })
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Failed to delete budget");
+				}
+				setFilteredBudgets(filteredBudgets.filter((budget) => budget.id !== id));
+				setBudgets(budgets.filter((budget) => budget.id !== id));
+			})
+			.catch((error) => console.error("Error deleting budget:", error));
+	};
+
 	const totalItems = filteredBudgets.length;
 	const totalPages = Math.ceil(totalItems / pageSize);
 
