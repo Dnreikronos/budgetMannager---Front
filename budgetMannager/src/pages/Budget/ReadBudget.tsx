@@ -21,6 +21,9 @@ const ReadBudgetPage = () => {
 	const [filteredBudgets, setFilteredBudgets] = useState<Budget[]>([]);
 	const [search, setSearch] = useState<string>("");
 
+	const [currentPage, setCurrentPage] = useState<number>(1);
+	const [pageSize] = useState<number>(5);
+
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -58,6 +61,17 @@ const ReadBudgetPage = () => {
 		setFilteredBudgets(filtered);
 	};
 
+	const totalItems = filteredBudgets.length;
+	const totalPages = Math.ceil(totalItems / pageSize);
+
+	const currentData = filteredBudgets.slice(
+		(currentPage - 1) * pageSize,
+		currentPage * pageSize
+	);
+
+	const handlePageChange = (newPage: number) => {
+		setCurrentPage(newPage);
+	};
 
 	const columns: ColumnDef<Budget>[] = [
 		{ accessorKey: "value", header: "Value" },
@@ -78,21 +92,9 @@ const ReadBudgetPage = () => {
 		<div className="flex h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
 			<Sidebar />
 
-			<div className="flex-1 p-6 overflow-y-auto">
-				<div className="mb-4 text-gray-600 text-sm">
-					<span
-						className="hover:text-indigo-600 cursor-pointer"
-						onClick={() => navigate("/Dashboards")}
-					>
-						Home
-					</span>{" "}
-					/ Budgets List
-				</div>
-
-				<div className="flex justify-between items-center mb-6">
-					<h1 className="text-3xl font-extrabold text-gray-800 flex items-center gap-2">
-						📊 Budgets List
-					</h1>
+			<div className="flex-1 p-6 flex flex-col justify-center items-center">
+				<div className="flex justify-between items-center mb-6 w-full max-w-5xl">
+					<h1 className="text-3xl font-extrabold text-gray-800">📊 Budgets List</h1>
 					<button
 						onClick={() => navigate("/CadBudget")}
 						className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg shadow-lg hover:bg-indigo-700 hover:scale-105 transition-transform duration-200"
@@ -101,17 +103,17 @@ const ReadBudgetPage = () => {
 					</button>
 				</div>
 
-				<div className="flex items-center gap-4 mb-4">
+				<div className="mb-4 w-full max-w-5xl">
 					<input
 						type="text"
 						placeholder="Search budgets..."
 						value={search}
 						onChange={handleSearch}
-						className="px-4 py-2 border rounded-md shadow-sm w-full max-w-md focus:ring focus:ring-indigo-200"
+						className="px-4 py-2 border rounded-md shadow-sm w-full focus:ring focus:ring-indigo-200"
 					/>
 				</div>
 
-				<div className="bg-white shadow-lg rounded-lg p-6">
+				<div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl">
 					{loading ? (
 						<div className="animate-pulse space-y-4">
 							<div className="h-6 bg-gray-200 rounded w-1/4"></div>
@@ -124,20 +126,40 @@ const ReadBudgetPage = () => {
 								<span className="mr-2">⚠️</span>Error: {error}
 							</p>
 						</div>
-					) : filteredBudgets.length === 0 ? (
-						<div className="text-center p-12">
-							<p className="text-gray-500 text-lg mb-4">No budgets found.</p>
-							<button
-								onClick={() => navigate("/CadBudget")}
-								className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition duration-150"
-							>
-								Add a Budget
-							</button>
-						</div>
 					) : (
-						<div className="overflow-x-auto rounded-lg border border-gray-200">
-							<DataTable data={filteredBudgets} columns={columns} />
-						</div>
+						<>
+							<div className="overflow-x-auto">
+								<DataTable data={currentData} columns={columns} />
+							</div>
+
+							<div className="flex justify-between items-center mt-6">
+								<button
+									onClick={() => handlePageChange(currentPage - 1)}
+									disabled={currentPage === 1}
+									className={`px-4 py-2 rounded-lg ${currentPage === 1
+										? "bg-gray-300 text-gray-500 cursor-not-allowed"
+										: "bg-indigo-600 text-white hover:bg-indigo-700"
+										}`}
+								>
+									Previous
+								</button>
+
+								<span className="text-gray-600">
+									Page {currentPage} of {totalPages}
+								</span>
+
+								<button
+									onClick={() => handlePageChange(currentPage + 1)}
+									disabled={currentPage === totalPages}
+									className={`px-4 py-2 rounded-lg ${currentPage === totalPages
+										? "bg-gray-300 text-gray-500 cursor-not-allowed"
+										: "bg-indigo-600 text-white hover:bg-indigo-700"
+										}`}
+								>
+									Next
+								</button>
+							</div>
+						</>
 					)}
 				</div>
 			</div>
