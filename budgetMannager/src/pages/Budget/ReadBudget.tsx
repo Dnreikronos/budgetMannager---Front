@@ -18,6 +18,8 @@ const ReadBudgetPage = () => {
 	const [budgets, setBudgets] = useState<Budget[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
+	const [filteredBudgets, setFilteredBudgets] = useState<Budget[]>([]);
+	const [search, setSearch] = useState<string>("");
 
 	const navigate = useNavigate();
 
@@ -77,20 +79,44 @@ const ReadBudgetPage = () => {
 			<Sidebar />
 
 			<div className="flex-1 p-6 overflow-y-auto">
+				<div className="mb-4 text-gray-600 text-sm">
+					<span
+						className="hover:text-indigo-600 cursor-pointer"
+						onClick={() => navigate("/")}
+					>
+						Home
+					</span>{" "}
+					/ Budgets List
+				</div>
+
 				<div className="flex justify-between items-center mb-6">
-					<h1 className="text-3xl font-bold text-gray-800">Budgets List</h1>
+					<h1 className="text-3xl font-extrabold text-gray-800 flex items-center gap-2">
+						📊 Budgets List
+					</h1>
 					<button
 						onClick={() => navigate("/CadBudget")}
-						className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg shadow-md hover:bg-indigo-700 transition duration-150"
+						className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg shadow-lg hover:bg-indigo-700 hover:scale-105 transition-transform duration-200"
 					>
-						Insert Budget
+						+ Add Budget
 					</button>
+				</div>
+
+				<div className="flex items-center gap-4 mb-4">
+					<input
+						type="text"
+						placeholder="Search budgets..."
+						value={search}
+						onChange={handleSearch}
+						className="px-4 py-2 border rounded-md shadow-sm w-full max-w-md focus:ring focus:ring-indigo-200"
+					/>
 				</div>
 
 				<div className="bg-white shadow-lg rounded-lg p-6">
 					{loading ? (
-						<div className="text-center py-12">
-							<p className="text-gray-500 text-lg animate-pulse">Loading budgets...</p>
+						<div className="animate-pulse space-y-4">
+							<div className="h-6 bg-gray-200 rounded w-1/4"></div>
+							<div className="h-6 bg-gray-200 rounded w-3/4"></div>
+							<div className="h-6 bg-gray-200 rounded w-2/4"></div>
 						</div>
 					) : error ? (
 						<div className="text-center py-12">
@@ -98,9 +124,19 @@ const ReadBudgetPage = () => {
 								<span className="mr-2">⚠️</span>Error: {error}
 							</p>
 						</div>
+					) : filteredBudgets.length === 0 ? (
+						<div className="text-center p-12">
+							<p className="text-gray-500 text-lg mb-4">No budgets found.</p>
+							<button
+								onClick={() => navigate("/CadBudget")}
+								className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition duration-150"
+							>
+								Add a Budget
+							</button>
+						</div>
 					) : (
-						<div className="overflow-x-auto">
-							<DataTable data={budgets} columns={columns} />
+						<div className="overflow-x-auto rounded-lg border border-gray-200">
+							<DataTable data={filteredBudgets} columns={columns} />
 						</div>
 					)}
 				</div>
