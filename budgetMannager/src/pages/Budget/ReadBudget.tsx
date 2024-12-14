@@ -35,13 +35,10 @@ const ReadBudgetPage = () => {
   }, []);
 
   const columns: ColumnDef<Budget>[] = [
-    { accessorKey: "id", header: "ID" },
     { accessorKey: "value", header: "Value" },
     { accessorKey: "currency", header: "Currency" },
     { accessorKey: "start", header: "Start" },
     { accessorKey: "end", header: "End" },
-    { accessorKey: "created_at", header: "Created At" },
-    { accessorKey: "updated_at", header: "Updated At" },
   ];
 
   return (
