@@ -25,6 +25,7 @@ const ReadBudgetPage = () => {
 	const [pageSize] = useState<number>(5);
 
 	const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+	const [currentBudget, setCuurrentBudget] = useState<Budget | null>(null); 
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -61,6 +62,17 @@ const ReadBudgetPage = () => {
 		);
 		setFilteredBudgets(filtered);
 	};
+
+	const openEditModal = (budget: Budget) => {
+		setCuurrentBudget(budget);
+		setEditModalOpen(true);
+	}
+
+	const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (currentBudget) {
+			setCuurrentBudget({ ...currentBudget, [e.target.name]: e.target.value})
+		}
+	}
 
 	const totalItems = filteredBudgets.length;
 	const totalPages = Math.ceil(totalItems / pageSize);
