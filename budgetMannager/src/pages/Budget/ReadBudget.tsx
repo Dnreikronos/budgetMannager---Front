@@ -82,7 +82,7 @@ const ReadBudgetPage = () => {
 				<div className="mb-4 text-gray-600 text-sm">
 					<span
 						className="hover:text-indigo-600 cursor-pointer"
-						onClick={() => navigate("/")}
+						onClick={() => navigate("/Dashboards")}
 					>
 						Home
 					</span>{" "}
