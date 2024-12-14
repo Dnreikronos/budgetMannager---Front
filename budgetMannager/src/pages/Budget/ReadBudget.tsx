@@ -24,6 +24,8 @@ const ReadBudgetPage = () => {
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	const [pageSize] = useState<number>(5);
 
+	const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+	const [currentBudget, setCuurrentBudget] = useState<Budget | null>(null);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -61,6 +63,54 @@ const ReadBudgetPage = () => {
 		setFilteredBudgets(filtered);
 	};
 
+	const openEditModal = (budget: Budget) => {
+		setCuurrentBudget(budget);
+		setEditModalOpen(true);
+	}
+
+	const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (currentBudget) {
+			setCuurrentBudget({ ...currentBudget, [e.target.name]: e.target.value })
+		}
+	}
+
+	const handleSaveEdit = () => {
+		if (currentBudget) {
+			fetch(`http://localhost:9090/Budget/${currentBudget.id}`, {
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(currentBudget),
+			})
+				.then((response) => {
+					if (!response.ok) {
+						throw new Error("Failed to update budget");
+					}
+					setBudgets(
+						budgets.map((b) => (b.id === currentBudget.id ? currentBudget : b))
+					);
+					setFilteredBudgets(
+						filteredBudgets.map((b) =>
+							b.id === currentBudget.id ? currentBudget : b
+						)
+					);
+					setEditModalOpen(false);
+				})
+				.catch((error) => console.error("Error updating budget:", error));
+		}
+	};
+
+	const handleDelete = (id: string) => {
+		fetch(`http://localhost:9090/Budget/${id}`, { method: "DELETE" })
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Failed to delete budget");
+				}
+				setFilteredBudgets(filteredBudgets.filter((budget) => budget.id !== id));
+				setBudgets(budgets.filter((budget) => budget.id !== id));
+			})
+			.catch((error) => console.error("Error deleting budget:", error));
+	};
+
 	const totalItems = filteredBudgets.length;
 	const totalPages = Math.ceil(totalItems / pageSize);
 
@@ -85,6 +135,25 @@ const ReadBudgetPage = () => {
 			accessorKey: "end",
 			header: "End",
 			cell: ({ row }) => <span>{formatDate(row.original.end)}</span>,
+		},
+		{
+			header: "Actions",
+			cell: ({ row }) => (
+				<div className="flex gap-2">
+					<button
+						onClick={() => openEditModal(row.original)}
+						className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+					>
+						Edit
+					</button>
+					<button
+						onClick={() => handleDelete(row.original.id)}
+						className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+					>
+						Delete
+					</button>
+				</div>
+			),
 		},
 	];
 
@@ -115,17 +184,9 @@ const ReadBudgetPage = () => {
 
 				<div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl">
 					{loading ? (
-						<div className="animate-pulse space-y-4">
-							<div className="h-6 bg-gray-200 rounded w-1/4"></div>
-							<div className="h-6 bg-gray-200 rounded w-3/4"></div>
-							<div className="h-6 bg-gray-200 rounded w-2/4"></div>
-						</div>
+						<p>Loading...</p>
 					) : error ? (
-						<div className="text-center py-12">
-							<p className="text-red-500 text-lg font-medium">
-								<span className="mr-2">⚠️</span>Error: {error}
-							</p>
-						</div>
+						<p>Error: {error}</p>
 					) : (
 						<>
 							<div className="overflow-x-auto">
@@ -136,25 +197,17 @@ const ReadBudgetPage = () => {
 								<button
 									onClick={() => handlePageChange(currentPage - 1)}
 									disabled={currentPage === 1}
-									className={`px-4 py-2 rounded-lg ${currentPage === 1
-										? "bg-gray-300 text-gray-500 cursor-not-allowed"
-										: "bg-indigo-600 text-white hover:bg-indigo-700"
-										}`}
+									className="bg-indigo-600 text-white px-4 py-2 rounded disabled:bg-gray-300"
 								>
 									Previous
 								</button>
-
-								<span className="text-gray-600">
+								<span>
 									Page {currentPage} of {totalPages}
 								</span>
-
 								<button
 									onClick={() => handlePageChange(currentPage + 1)}
 									disabled={currentPage === totalPages}
-									className={`px-4 py-2 rounded-lg ${currentPage === totalPages
-										? "bg-gray-300 text-gray-500 cursor-not-allowed"
-										: "bg-indigo-600 text-white hover:bg-indigo-700"
-										}`}
+									className="bg-indigo-600 text-white px-4 py-2 rounded disabled:bg-gray-300"
 								>
 									Next
 								</button>
@@ -162,10 +215,45 @@ const ReadBudgetPage = () => {
 						</>
 					)}
 				</div>
+
+				{/* Edit Modal */}
+				{editModalOpen && currentBudget && (
+					<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+						<div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+							<h2 className="text-2xl font-bold mb-4">Edit Budget</h2>
+							<input
+								name="value"
+								type="number"
+								value={currentBudget.value}
+								onChange={handleEditChange}
+								className="w-full mb-2 px-4 py-2 border rounded"
+								placeholder="Value"
+							/>
+							<input
+								name="currency"
+								value={currentBudget.currency}
+								onChange={handleEditChange}
+								className="w-full mb-2 px-4 py-2 border rounded"
+								placeholder="Currency"
+							/>
+							<button
+								onClick={handleSaveEdit}
+								className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+							>
+								Save
+							</button>
+							<button
+								onClick={() => setEditModalOpen(false)}
+								className="bg-gray-500 text-white px-4 py-2 ml-2 rounded hover:bg-gray-600"
+							>
+								Cancel
+							</button>
+						</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);
 };
-
 export default ReadBudgetPage;
 
