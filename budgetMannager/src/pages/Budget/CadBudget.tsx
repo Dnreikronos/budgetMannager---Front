@@ -42,7 +42,7 @@ const CadBudget = () => {
 				throw new Error(errorText || "Failed to create budget");
 			}
 
-			navigate("/ReadBudgets");
+			navigate("/ReadBudget");
 		} catch (err: any) {
 			setError(err.message || "An unexpected error occurred.");
 		} finally {
@@ -51,7 +51,7 @@ const CadBudget = () => {
 	};
 
 	const handleCancel = () => {
-		navigate("/ReadBudgets");
+		navigate("/ReadBudget");
 	};
 
 
