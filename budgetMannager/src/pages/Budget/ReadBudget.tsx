@@ -74,6 +74,31 @@ const ReadBudgetPage = () => {
 		}
 	}
 
+	  const handleSaveEdit = () => {
+    if (currentBudget) {
+      fetch(`http://localhost:9090/Budget/${currentBudget.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(currentBudget),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to update budget");
+          }
+          setBudgets(
+            budgets.map((b) => (b.id === currentBudget.id ? currentBudget : b))
+          );
+          setFilteredBudgets(
+            filteredBudgets.map((b) =>
+              b.id === currentBudget.id ? currentBudget : b
+            )
+          );
+          setEditModalOpen(false);
+        })
+        .catch((error) => console.error("Error updating budget:", error));
+    }
+  };
+
 	const totalItems = filteredBudgets.length;
 	const totalPages = Math.ceil(totalItems / pageSize);
 
