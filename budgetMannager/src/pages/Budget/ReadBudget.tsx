@@ -21,6 +21,9 @@ const ReadBudgetPage = () => {
 	const [filteredBudgets, setFilteredBudgets] = useState<Budget[]>([]);
 	const [search, setSearch] = useState<string>("");
 
+	const [currentPage, setCurrentPage] = useState<number>(1);
+	const [pageSize] = useState<number>(5);
+
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -58,6 +61,17 @@ const ReadBudgetPage = () => {
 		setFilteredBudgets(filtered);
 	};
 
+	const totalItems = filteredBudgets.length;
+	const totalPages = Math.ceil(totalItems / pageSize);
+
+	const currentData = filteredBudgets.slice(
+		(currentPage - 1) * pageSize,
+		currentPage * pageSize
+	);
+
+	const handlePageChange = (newPage: number) => {
+		setCurrentPage(newPage);
+	};
 
 	const columns: ColumnDef<Budget>[] = [
 		{ accessorKey: "value", header: "Value" },
