@@ -166,17 +166,9 @@ const ReadBudgetPage = () => {
 
 				<div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl">
 					{loading ? (
-						<div className="animate-pulse space-y-4">
-							<div className="h-6 bg-gray-200 rounded w-1/4"></div>
-							<div className="h-6 bg-gray-200 rounded w-3/4"></div>
-							<div className="h-6 bg-gray-200 rounded w-2/4"></div>
-						</div>
+						<p>Loading...</p>
 					) : error ? (
-						<div className="text-center py-12">
-							<p className="text-red-500 text-lg font-medium">
-								<span className="mr-2">⚠️</span>Error: {error}
-							</p>
-						</div>
+						<p>Error: {error}</p>
 					) : (
 						<>
 							<div className="overflow-x-auto">
@@ -187,25 +179,17 @@ const ReadBudgetPage = () => {
 								<button
 									onClick={() => handlePageChange(currentPage - 1)}
 									disabled={currentPage === 1}
-									className={`px-4 py-2 rounded-lg ${currentPage === 1
-										? "bg-gray-300 text-gray-500 cursor-not-allowed"
-										: "bg-indigo-600 text-white hover:bg-indigo-700"
-										}`}
+									className="bg-indigo-600 text-white px-4 py-2 rounded disabled:bg-gray-300"
 								>
 									Previous
 								</button>
-
-								<span className="text-gray-600">
+								<span>
 									Page {currentPage} of {totalPages}
 								</span>
-
 								<button
 									onClick={() => handlePageChange(currentPage + 1)}
 									disabled={currentPage === totalPages}
-									className={`px-4 py-2 rounded-lg ${currentPage === totalPages
-										? "bg-gray-300 text-gray-500 cursor-not-allowed"
-										: "bg-indigo-600 text-white hover:bg-indigo-700"
-										}`}
+									className="bg-indigo-600 text-white px-4 py-2 rounded disabled:bg-gray-300"
 								>
 									Next
 								</button>
@@ -213,10 +197,45 @@ const ReadBudgetPage = () => {
 						</>
 					)}
 				</div>
+
+				{/* Edit Modal */}
+				{editModalOpen && currentBudget && (
+					<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+						<div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+							<h2 className="text-2xl font-bold mb-4">Edit Budget</h2>
+							<input
+								name="value"
+								type="number"
+								value={currentBudget.value}
+								onChange={handleEditChange}
+								className="w-full mb-2 px-4 py-2 border rounded"
+								placeholder="Value"
+							/>
+							<input
+								name="currency"
+								value={currentBudget.currency}
+								onChange={handleEditChange}
+								className="w-full mb-2 px-4 py-2 border rounded"
+								placeholder="Currency"
+							/>
+							<button
+								onClick={handleSaveEdit}
+								className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+							>
+								Save
+							</button>
+							<button
+								onClick={() => setEditModalOpen(false)}
+								className="bg-gray-500 text-white px-4 py-2 ml-2 rounded hover:bg-gray-600"
+							>
+								Cancel
+							</button>
+						</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);
 };
-
 export default ReadBudgetPage;
 
