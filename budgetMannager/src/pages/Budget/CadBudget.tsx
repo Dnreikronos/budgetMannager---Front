@@ -51,7 +51,7 @@ const CadBudget = () => {
 	};
 
 	const handleCancel = () => {
-		navigate("/ReadBudgets");
+		navigate("/ReadBudget");
 	};
 
 
