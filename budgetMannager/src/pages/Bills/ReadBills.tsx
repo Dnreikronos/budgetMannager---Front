@@ -30,7 +30,10 @@ const ReadBillsPage = () => {
 				}
 				return response.json();
 			})
-			.then((data) => setBills(data.Bills || []))
+				.then((data) => {
+				setBills(data.Budgets || []);
+				setFilteredBills(data.Budgets || []);
+			})
 			.catch((error) => setError(error.message))
 			.finally(() => setLoading(false));
 	}, []);
