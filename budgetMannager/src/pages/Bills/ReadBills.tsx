@@ -42,6 +42,28 @@ const ReadBillsPage = () => {
 	}, []);
 
 
+
+	const totalItems = filteredBills.length;
+	const totalPages = Math.ceil(totalItems / pageSize);
+
+	const currentData = filteredBills.slice(
+		(currentPage - 1) * pageSize,
+		currentPage * pageSize
+	);
+
+	const handlePageChange = (newPage: number) => {
+		setCurrentPage(newPage);
+	};
+
+	const columns: ColumnDef<Bills>[] = [
+		{ accessorKey: "id", header: "ID" },
+		{ accessorKey: "value", header: "Value" },
+		{ accessorKey: "user_id", header: "User ID" },
+		{ accessorKey: "budget_id", header: "Budget ID" },
+		{ accessorKey: "category", header: "Category" },
+		{ accessorKey: "status", header: "Status" },
+	];
+
 	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const query = e.target.value.toLowerCase();
 		setSearch(query);
@@ -51,33 +73,10 @@ const ReadBillsPage = () => {
 				bill.user_id.toLowerCase().includes(query) ||
 				bill.budget_id.toLowerCase().includes(query) ||
 				bill.category.toLowerCase().includes(query) ||
-				bill.status.toLowerCase().includes(query) ||
+				bill.status.toLowerCase().includes(query)
 		);
 		setFilteredBills(filtered);
 	};
-
-	 const columns: ColumnDef<Bills>[] = [
-    { accessorKey: "id", header: "ID" },
-    { accessorKey: "value", header: "Value" },
-    { accessorKey: "user_id", header: "User ID" },
-    { accessorKey: "budget_id", header: "Budget ID" },
-    { accessorKey: "category", header: "Category" },
-    { accessorKey: "status", header: "Status" },
-  ];
-
-	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value.toLowerCase();
-    setSearch(query);
-    const filtered = bills.filter(
-      (bill) =>
-        bill.value.toString().includes(query) ||
-        bill.user_id.toLowerCase().includes(query) ||
-        bill.budget_id.toLowerCase().includes(query) ||
-        bill.category.toLowerCase().includes(query) ||
-        bill.status.toLowerCase().includes(query)
-    );
-    setFilteredBills(filtered);
-  };
 
 	return (
 		<div className="flex h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
