@@ -30,13 +30,28 @@ const ReadBillsPage = () => {
 				}
 				return response.json();
 			})
-				.then((data) => {
+			.then((data) => {
 				setBills(data.Budgets || []);
 				setFilteredBills(data.Budgets || []);
 			})
 			.catch((error) => setError(error.message))
 			.finally(() => setLoading(false));
 	}, []);
+
+
+	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const query = e.target.value.toLowerCase();
+		setSearch(query);
+		const filtered = bills.filter(
+			(bill) =>
+				bill.value.toString().includes(query) ||
+				bill.user_id.toLowerCase().includes(query) ||
+				bill.budget_id.toLowerCase().includes(query) ||
+				bill.category.toLowerCase().includes(query) ||
+				bill.status.toLowerCase().includes(query) ||
+		);
+		setFilteredBills(filtered);
+	};
 
 	const columns: ColumnDef<Bills>[] = [
 		{ accessorKey: "id", header: "ID" },
@@ -48,6 +63,20 @@ const ReadBillsPage = () => {
 		{ accessorKey: "created_at", header: "Created At" },
 		{ accessorKey: "updated_at", header: "Updated At" },
 	];
+
+	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value.toLowerCase();
+    setSearch(query);
+    const filtered = bills.filter(
+      (bill) =>
+        bill.value.toString().includes(query) ||
+        bill.user_id.toLowerCase().includes(query) ||
+        bill.budget_id.toLowerCase().includes(query) ||
+        bill.category.toLowerCase().includes(query) ||
+        bill.status.toLowerCase().includes(query)
+    );
+    setFilteredBills(filtered);
+  };
 
 	return (
 		<div className="flex h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
