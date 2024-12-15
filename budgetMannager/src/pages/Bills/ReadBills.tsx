@@ -53,16 +53,14 @@ const ReadBillsPage = () => {
 		setFilteredBills(filtered);
 	};
 
-	const columns: ColumnDef<Bills>[] = [
-		{ accessorKey: "id", header: "ID" },
-		{ accessorKey: "value", header: "Value" },
-		{ accessorKey: "user_id", header: "User ID" },
-		{ accessorKey: "budget_id", header: "Budget ID" },
-		{ accessorKey: "category", header: "Category" },
-		{ accessorKey: "status", header: "Status" },
-		{ accessorKey: "created_at", header: "Created At" },
-		{ accessorKey: "updated_at", header: "Updated At" },
-	];
+	 const columns: ColumnDef<Bills>[] = [
+    { accessorKey: "id", header: "ID" },
+    { accessorKey: "value", header: "Value" },
+    { accessorKey: "user_id", header: "User ID" },
+    { accessorKey: "budget_id", header: "Budget ID" },
+    { accessorKey: "category", header: "Category" },
+    { accessorKey: "status", header: "Status" },
+  ];
 
 	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value.toLowerCase();
