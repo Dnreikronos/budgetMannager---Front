@@ -20,6 +20,9 @@ const ReadBillsPage = () => {
 	const [filteredBills, setFilteredBills] = useState<Bills[]>([]);
 	const [search, setSearch] = useState<string>("");
 
+	const [currentPage, setCurrentPage] = useState<number>(1);
+	const [pageSize] = useState<number>(5);
+
 	const navigate = useNavigate();
 
 	useEffect(() => {
