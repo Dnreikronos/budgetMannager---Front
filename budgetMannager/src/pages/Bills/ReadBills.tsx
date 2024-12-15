@@ -55,14 +55,44 @@ const ReadBillsPage = () => {
 		setCurrentPage(newPage);
 	};
 
-	const columns: ColumnDef<Bills>[] = [
-		{ accessorKey: "id", header: "ID" },
-		{ accessorKey: "value", header: "Value" },
-		{ accessorKey: "user_id", header: "User ID" },
-		{ accessorKey: "budget_id", header: "Budget ID" },
-		{ accessorKey: "category", header: "Category" },
-		{ accessorKey: "status", header: "Status" },
-	];
+const columns: ColumnDef<Bills>[] = [
+    { accessorKey: "value", header: "Value" },
+    { accessorKey: "user_id", header: "User ID" },
+    { accessorKey: "budget_id", header: "Budget ID" },
+    { accessorKey: "category", header: "Category" },
+    { accessorKey: "status", header: "Status" },
+    {
+      header: "Actions",
+      cell: ({ row }) => (
+        <div className="flex gap-2">
+          <button
+            onClick={() => navigate(`/EditBill/${row.original.id}`)}
+            className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+          >
+            Edit
+          </button>
+          <button
+            onClick={() => handleDelete(row.original.id)}
+            className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+          >
+            Delete
+          </button>
+        </div>
+      ),
+    },
+  ];
+
+
+	const handleDelete = (id: string) => {
+    fetch(`http://localhost:9090/Bill/${id}`, { method: "DELETE" })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete bill");
+        }
+        setBills(bills.filter((bill) => bill.id !== id));
+      })
+      .catch((error) => console.error("Error deleting bill:", error));
+  };
 
 	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const query = e.target.value.toLowerCase();
