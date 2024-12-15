@@ -80,44 +80,64 @@ const ReadBillsPage = () => {
 
 	return (
 		<div className="flex h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
-			{/* Sidebar */}
 			<Sidebar />
 
-			{/* Main Content */}
-			<div className="flex-1 p-6 overflow-y-auto">
-				{/* Header */}
-				<div className="flex justify-between items-center mb-6">
-					<h1 className="text-3xl font-bold text-gray-800">Bills List</h1>
+			<div className="flex-1 p-6 flex flex-col justify-center items-center">
+				<div className="flex justify-between items-center mb-6 w-full max-w-5xl">
+					<h1 className="text-3xl font-extrabold text-gray-800">📊 Bills List</h1>
 					<button
 						onClick={() => navigate("/CadBills")}
-						className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg shadow-md hover:bg-indigo-700 transition duration-150"
+						className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg shadow-lg hover:bg-indigo-700 hover:scale-105 transition-transform duration-200"
 					>
-						Insert Bills
+						+ Add Bill
 					</button>
 				</div>
 
-				{/* Table Section */}
-				<div className="bg-white shadow-lg rounded-lg p-6">
+				<div className="mb-4 w-full max-w-5xl">
+					<input
+						type="text"
+						placeholder="Search bills..."
+						value={search}
+						onChange={handleSearch}
+						className="px-4 py-2 border rounded-md shadow-sm w-full focus:ring focus:ring-indigo-200"
+					/>
+				</div>
+
+				<div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl">
 					{loading ? (
-						<div className="text-center py-12">
-							<p className="text-gray-500 text-lg animate-pulse">Loading bills...</p>
-						</div>
+						<p>Loading...</p>
 					) : error ? (
-						<div className="text-center py-12">
-							<p className="text-red-500 text-lg font-medium">
-								<span className="mr-2">⚠️</span>Error: {error}
-							</p>
-						</div>
+						<p>Error: {error}</p>
 					) : (
-						<div className="overflow-x-auto">
-							<DataTable data={bills} columns={columns} />
-						</div>
+						<>
+							<div className="overflow-x-auto">
+								<DataTable data={currentData} columns={columns} />
+							</div>
+
+							<div className="flex justify-between items-center mt-6">
+								<button
+									onClick={() => handlePageChange(currentPage - 1)}
+									disabled={currentPage === 1}
+									className="bg-indigo-600 text-white px-4 py-2 rounded disabled:bg-gray-300"
+								>
+									Previous
+								</button>
+								<span>
+									Page {currentPage} of {totalPages}
+								</span>
+								<button
+									onClick={() => handlePageChange(currentPage + 1)}
+									disabled={currentPage === totalPages}
+									className="bg-indigo-600 text-white px-4 py-2 rounded disabled:bg-gray-300"
+								>
+									Next
+								</button>
+							</div>
+						</>
 					)}
 				</div>
 			</div>
 		</div>
 	);
-};
-
-export default ReadBillsPage;
+}; export default ReadBillsPage;
 
