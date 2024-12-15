@@ -10,8 +10,6 @@ type Budget = {
 	currency: string;
 	start: string;
 	end: string;
-	created_at: string;
-	updated_at: string;
 };
 
 const ReadBudgetPage = () => {

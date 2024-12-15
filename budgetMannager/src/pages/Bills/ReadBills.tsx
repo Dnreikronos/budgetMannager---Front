@@ -11,8 +11,6 @@ type Bills = {
   budget_id: string;
   category: string;
   status: string;
-  created_at: string;
-  updated_at: string;
 };
 
 const ReadBillsPage = () => {
