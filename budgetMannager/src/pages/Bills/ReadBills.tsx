@@ -5,85 +5,139 @@ import DataTable from "../../components/ui/dataTable";
 import { ColumnDef } from "@tanstack/react-table";
 
 type Bills = {
-  id: string;
-  value: number;
-  user_id: string;
-  budget_id: string;
-  category: string;
-  status: string;
+	id: string;
+	value: number;
+	user_id: string;
+	budget_id: string;
+	category: string;
+	status: string;
 };
 
 const ReadBillsPage = () => {
-  const [bills, setBills] = useState<Bills[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+	const [bills, setBills] = useState<Bills[]>([]);
+	const [loading, setLoading] = useState<boolean>(true);
+	const [error, setError] = useState<string | null>(null);
+	const [filteredBills, setFilteredBills] = useState<Bills[]>([]);
+	const [search, setSearch] = useState<string>("");
 
-  const navigate = useNavigate();
+	const [currentPage, setCurrentPage] = useState<number>(1);
+	const [pageSize] = useState<number>(5);
 
-  useEffect(() => {
-    fetch("http://localhost:9090/Bills")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch bills");
-        }
-        return response.json();
-      })
-      .then((data) => setBills(data.Bills || []))
-      .catch((error) => setError(error.message))
-      .finally(() => setLoading(false));
-  }, []);
+	const navigate = useNavigate();
 
-  const columns: ColumnDef<Bills>[] = [
-    { accessorKey: "id", header: "ID" },
-    { accessorKey: "value", header: "Value" },
-    { accessorKey: "user_id", header: "User ID" },
-    { accessorKey: "budget_id", header: "Budget ID" },
-    { accessorKey: "category", header: "Category" },
-    { accessorKey: "status", header: "Status" },
-    { accessorKey: "created_at", header: "Created At" },
-    { accessorKey: "updated_at", header: "Updated At" },
-  ];
+	useEffect(() => {
+		fetch("http://localhost:9090/Bills")
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Failed to fetch bills");
+				}
+				return response.json();
+			})
+			.then((data) => {
+				setBills(data.Budgets || []);
+				setFilteredBills(data.Budgets || []);
+			})
+			.catch((error) => setError(error.message))
+			.finally(() => setLoading(false));
+	}, []);
 
-  return (
-    <div className="flex h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
-      {/* Sidebar */}
-      <Sidebar />
 
-      {/* Main Content */}
-      <div className="flex-1 p-6 overflow-y-auto">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-800">Bills List</h1>
-          <button
-            onClick={() => navigate("/CadBills")}
-            className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg shadow-md hover:bg-indigo-700 transition duration-150"
-          >
-            Insert Bills
-          </button>
-        </div>
 
-        {/* Table Section */}
-        <div className="bg-white shadow-lg rounded-lg p-6">
-          {loading ? (
-            <div className="text-center py-12">
-              <p className="text-gray-500 text-lg animate-pulse">Loading bills...</p>
-            </div>
-          ) : error ? (
-            <div className="text-center py-12">
-              <p className="text-red-500 text-lg font-medium">
-                <span className="mr-2">⚠️</span>Error: {error}
-              </p>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <DataTable data={bills} columns={columns} />
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
+	const totalItems = filteredBills.length;
+	const totalPages = Math.ceil(totalItems / pageSize);
 
-export default ReadBillsPage;
+	const currentData = filteredBills.slice(
+		(currentPage - 1) * pageSize,
+		currentPage * pageSize
+	);
+
+	const handlePageChange = (newPage: number) => {
+		setCurrentPage(newPage);
+	};
+
+	const columns: ColumnDef<Bills>[] = [
+		{ accessorKey: "id", header: "ID" },
+		{ accessorKey: "value", header: "Value" },
+		{ accessorKey: "user_id", header: "User ID" },
+		{ accessorKey: "budget_id", header: "Budget ID" },
+		{ accessorKey: "category", header: "Category" },
+		{ accessorKey: "status", header: "Status" },
+	];
+
+	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const query = e.target.value.toLowerCase();
+		setSearch(query);
+		const filtered = bills.filter(
+			(bill) =>
+				bill.value.toString().includes(query) ||
+				bill.user_id.toLowerCase().includes(query) ||
+				bill.budget_id.toLowerCase().includes(query) ||
+				bill.category.toLowerCase().includes(query) ||
+				bill.status.toLowerCase().includes(query)
+		);
+		setFilteredBills(filtered);
+	};
+
+	return (
+		<div className="flex h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
+			<Sidebar />
+
+			<div className="flex-1 p-6 flex flex-col justify-center items-center">
+				<div className="flex justify-between items-center mb-6 w-full max-w-5xl">
+					<h1 className="text-3xl font-extrabold text-gray-800">📊 Bills List</h1>
+					<button
+						onClick={() => navigate("/CadBills")}
+						className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg shadow-lg hover:bg-indigo-700 hover:scale-105 transition-transform duration-200"
+					>
+						+ Add Bill
+					</button>
+				</div>
+
+				<div className="mb-4 w-full max-w-5xl">
+					<input
+						type="text"
+						placeholder="Search bills..."
+						value={search}
+						onChange={handleSearch}
+						className="px-4 py-2 border rounded-md shadow-sm w-full focus:ring focus:ring-indigo-200"
+					/>
+				</div>
+
+				<div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl">
+					{loading ? (
+						<p>Loading...</p>
+					) : error ? (
+						<p>Error: {error}</p>
+					) : (
+						<>
+							<div className="overflow-x-auto">
+								<DataTable data={currentData} columns={columns} />
+							</div>
+
+							<div className="flex justify-between items-center mt-6">
+								<button
+									onClick={() => handlePageChange(currentPage - 1)}
+									disabled={currentPage === 1}
+									className="bg-indigo-600 text-white px-4 py-2 rounded disabled:bg-gray-300"
+								>
+									Previous
+								</button>
+								<span>
+									Page {currentPage} of {totalPages}
+								</span>
+								<button
+									onClick={() => handlePageChange(currentPage + 1)}
+									disabled={currentPage === totalPages}
+									className="bg-indigo-600 text-white px-4 py-2 rounded disabled:bg-gray-300"
+								>
+									Next
+								</button>
+							</div>
+						</>
+					)}
+				</div>
+			</div>
+		</div>
+	);
+}; export default ReadBillsPage;
 
