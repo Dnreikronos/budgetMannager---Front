@@ -82,6 +82,18 @@ const columns: ColumnDef<Bills>[] = [
     },
   ];
 
+
+	const handleDelete = (id: string) => {
+    fetch(`http://localhost:9090/Bill/${id}`, { method: "DELETE" })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete bill");
+        }
+        setBills(bills.filter((bill) => bill.id !== id));
+      })
+      .catch((error) => console.error("Error deleting bill:", error));
+  };
+
 	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const query = e.target.value.toLowerCase();
 		setSearch(query);
