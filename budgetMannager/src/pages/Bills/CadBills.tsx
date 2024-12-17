@@ -118,6 +118,27 @@ const CadBills = () => {
 							/>
 						</div>
 
+
+						<div>
+							<label htmlFor="budget" className="block text-sm font-medium text-gray-700">
+								Budget
+							</label>
+							<select
+								id="budget"
+								value={selectedBudget}
+								onChange={(e) => setSelectedBudget(e.target.value)}
+								className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+								required
+							>
+								<option value="" disabled>Select a budget</option>
+								{budgets.map((budget) => (
+									<option key={budget.id} value={budget.id}>
+										{budget.name || `Budget ${budget.id}`}
+									</option>
+								))}
+							</select>
+						</div>
+
 						<div>
 							<label
 								htmlFor="status"
