@@ -98,7 +98,6 @@ const columns: ColumnDef<Bills>[] = [
 		const filtered = bills.filter(
 			(bill) =>
 				bill.value.toString().includes(query) ||
-				bill.user_id.toLowerCase().includes(query) ||
 				bill.budget_id.toLowerCase().includes(query) ||
 				bill.category.toLowerCase().includes(query) ||
 				bill.status.toLowerCase().includes(query)
