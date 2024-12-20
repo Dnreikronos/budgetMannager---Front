@@ -7,7 +7,6 @@ import { ColumnDef } from "@tanstack/react-table";
 type Bills = {
 	id: string;
 	value: number;
-	user_id: string;
 	budget_id: string;
 	category: string;
 	status: string;
@@ -57,7 +56,6 @@ const ReadBillsPage = () => {
 
 const columns: ColumnDef<Bills>[] = [
     { accessorKey: "value", header: "Value" },
-    { accessorKey: "user_id", header: "User ID" },
     { accessorKey: "budget_id", header: "Budget ID" },
     { accessorKey: "category", header: "Category" },
     { accessorKey: "status", header: "Status" },
