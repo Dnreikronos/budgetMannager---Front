@@ -20,7 +20,7 @@ const CadBills = () => {
 				if (!response.ok) throw new Error("Failed to fetch budgets");
 
 				const data = await response.json();
-				setBudgets(data.budgets || []);
+				setBudgets(data.Budgets || []);
 			} catch (err: any) {
 				setError(err.message || "Error loading budgets");
 			}
