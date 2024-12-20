@@ -35,7 +35,7 @@ const ReadBillsPage = () => {
 			})
 			.then((data) => {
 				setBills(data.Budgets || []);
-				setFilteredBills(data.Budgets || []);
+				setFilteredBills(data.Bills || []);
 			})
 			.catch((error) => setError(error.message))
 			.finally(() => setLoading(false));
