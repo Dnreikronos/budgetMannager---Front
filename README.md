@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BudgetManager</title>
 </head>
 <body>
     <header>
@@ -11,7 +10,7 @@
         <p><strong>BudgetManager</strong> is a web application designed to help users effectively manage their budgets and track expenses. Built with React and TypeScript, the application provides an intuitive interface for creating, updating, and monitoring budgets and financial records.</p>
     </header>
 
-    <section>
+<section>
         <h2>Features</h2>
         <ul>
             <li><strong>User Authentication:</strong> Secure registration and login functionality.</li>
@@ -22,7 +21,7 @@
         </ul>
     </section>
 
-    <section>
+<section>
         <h2>Tech Stack</h2>
         <ul>
             <li><strong>Frontend Framework:</strong> React with TypeScript</li>
@@ -33,16 +32,16 @@
         </ul>
     </section>
 
-    <section>
+<section>
         <h2>Getting Started</h2>
 
-        <h3>Prerequisites</h3>
+<h3>Prerequisites</h3>
         <ul>
             <li>Node.js (version 16 or higher)</li>
             <li>npm or Yarn package manager</li>
         </ul>
 
-        <h3>Installation</h3>
+<h3>Installation</h3>
         <ol>
             <li>
                 Clone the repository:
@@ -57,12 +56,12 @@ cd budgetmanager
             </li>
         </ol>
 
-        <h3>Running the Application</h3>
+<h3>Running the Application</h3>
         <p>Start the development server:</p>
         <pre>npm run dev</pre>
         <p>Visit <a href="http://localhost:5173" target="_blank">http://localhost:5173</a> in your browser.</p>
 
-        <h3>Building for Production</h3>
+<h3>Building for Production</h3>
         <p>Create an optimized production build:</p>
         <pre>npm run build</pre>
     </section>
@@ -71,8 +70,7 @@ cd budgetmanager
         <p>Contributions are welcome! If you'd like to contribute, please fork the repository and create a pull request.</p>
     </section>
 
-
-    <section>
+<section>
         <h2>Contact</h2>
         <p>For any questions or feedback, feel free to reach out at <a href="mailto:joao.soares@universo.univates.br">joao.soares@universo.univates.br</a>.</p>
     </section>
