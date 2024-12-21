@@ -1,52 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BudgetManager - README</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0 20px;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        h1, h2, h3 {
-            color: #0056b3;
-        }
-        pre {
-            background: #f4f4f4;
-            border-left: 4px solid #0056b3;
-            padding: 10px;
-            overflow-x: auto;
-        }
-        code {
-            color: #d6336c;
-        }
-        a {
-            color: #0056b3;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        ul {
-            margin: 10px 0;
-            padding: 0 20px;
-        }
-        ol {
-            margin: 10px 0;
-            padding: 0 20px;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-    </style>
-</head>
-
 <body>
     <h1>BudgetManager</h1>
     <p><strong>BudgetManager</strong> is a web application designed to help users effectively manage their budgets and track expenses. Built with React and TypeScript, the application provides an intuitive interface for creating, updating, and monitoring budgets and financial records.</p>
@@ -99,6 +50,5 @@
     <h2>Project Structure</h2>
 </body>
 
-</html>
 
 
