@@ -97,12 +97,12 @@ const DashboardsPage = () => {
     <div className="flex h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
       <Sidebar />
 
-      <div className="flex-1 p-6 flex flex-col justify-center items-center">
-        <div className="flex justify-between items-center mb-6 w-full max-w-5xl">
+      <div className="flex-1 p-6 flex flex-col justify-center items-center overflow-auto">
+        <div className="flex justify-between items-center mb-6 w-full max-w-7xl">
           <h1 className="text-3xl font-extrabold text-gray-800">📊 Dashboards</h1>
         </div>
 
-        <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl space-y-6">
+        <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-7xl space-y-6">
           {loading ? (
             <p>Loading...</p>
           ) : error ? (
