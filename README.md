@@ -31,22 +31,22 @@
     <h3>Installation</h3>
     <ol>
         <li>Clone the repository:
-            <pre><code>git clone https://github.com/Dnreikronos/budgetMannager---Front.git
-            cd budgetmanager<code></pre>
+            <pre>git clone https://github.com/Dnreikronos/budgetMannager---Front.git
+            cd budgetmanager</pre>
         </li>
         <li>Install dependencies:
-            <pre><code>npm install</code></pre>
+            <pre>npm install</pre>
         </li>
     </ol>
 
     <h3>Running the Application</h3>
     <p>Start the development server:</p>
-    <pre><code>npm run dev</code
+    <pre>npm run dev
     <p>Visit <a href="http://localhost:5173" target="_blank">http://localhost:5173</a> in your browser.</p>
 
     <h3>Building for Production</h3>
     <p>Create an optimized production build:</p>
-    <pre><code>npm run build</code></pre>
+    <pre>npm run build</pre>
     <h2>Project Structure</h2>
 </body>
 
