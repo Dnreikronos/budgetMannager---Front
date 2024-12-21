@@ -81,12 +81,16 @@ const DasboardsPage = () => {
 
 
 
-
-	return (
-		<>
-			<Sidebar />
-		</>
-	);
+  return (
+    <div className="flex h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
+      <Sidebar />
+      <div className="flex-1 p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Chart type="bar" data={billsChartData} title="Bills by Category" />
+        <Chart type="pie" data={budgetsChartData} title="Budgets by Currency" />
+      </div>
+    </div>
+  );
 };
+
 
 export default DasboardsPage;
