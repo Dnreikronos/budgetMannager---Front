@@ -63,6 +63,7 @@ const columns: ColumnDef<Bills>[] = [
       cell: ({ row }) => (
         <div className="flex gap-2">
           <button
+            onClick={() => openEditModal(row.original)}
             className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
           >
             Edit
