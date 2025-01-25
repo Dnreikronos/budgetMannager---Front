@@ -166,4 +166,58 @@ const columns: ColumnDef<Bills>[] = [
 		</div>
 	);
 }; export default ReadBillsPage;
+        {editModalOpen && currentBill && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white w-1/3 rounded-lg p-6 shadow-lg">
+              <h2 className="text-xl font-bold mb-4">Edit Bill</h2>
+              <div>
+                <label className="block text-sm font-medium mb-1">Value</label>
+                <input
+                  name="value"
+                  type="number"
+                  value={currentBill.value}
+                  onChange={handleEditChange}
+                  className="w-full mb-3 px-4 py-2 border rounded"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Category</label>
+                <input
+                  name="category"
+                  value={currentBill.category}
+                  onChange={handleEditChange}
+                  className="w-full mb-3 px-4 py-2 border rounded"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Status</label>
+                <input
+                  name="status"
+                  value={currentBill.status}
+                  onChange={handleEditChange}
+                  className="w-full mb-3 px-4 py-2 border rounded"
+                />
+              </div>
+              <div className="flex justify-end">
+                <button
+                  onClick={handleSaveEdit}
+                  className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => setEditModalOpen(false)}
+                  className="bg-gray-500 text-white px-4 py-2 ml-3 rounded hover:bg-gray-600"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 
