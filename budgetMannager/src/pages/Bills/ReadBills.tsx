@@ -56,7 +56,6 @@ const ReadBillsPage = () => {
 
 const columns: ColumnDef<Bills>[] = [
     { accessorKey: "value", header: "Value" },
-    { accessorKey: "budget_id", header: "Budget ID" },
     { accessorKey: "category", header: "Category" },
     { accessorKey: "status", header: "Status" },
     {
@@ -64,7 +63,6 @@ const columns: ColumnDef<Bills>[] = [
       cell: ({ row }) => (
         <div className="flex gap-2">
           <button
-            onClick={() => navigate(`/EditBill/${row.original.id}`)}
             className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
           >
             Edit
