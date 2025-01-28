@@ -75,5 +75,9 @@ cd budgetmanager
         <p>For any questions or feedback, feel free to reach out at <a href="mailto:joao.soares@universo.univates.br">joao.soares@universo.univates.br</a>.</p>
     </section>
 </body>
+
+<img src="./budgetMannager/src/assets/bills_screen.png" alt="Bills Screen">
+<img src="./budgetMannager/src/assets/budget_screen.png" alt="Budget Screen">
+<img src="./budgetMannager/src/assets/dashboard_screen.png" alt="Dashboard Screen">
 </html>
 
