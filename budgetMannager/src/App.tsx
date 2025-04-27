@@ -1,3 +1,5 @@
+import React from "react";
+import { AnimatePresence } from "framer-motion";
 import ReadBudgetPage from "./pages/Budget/ReadBudget.tsx";
 import CadBudgetPage from "./pages/Budget/CadBudget.tsx";
 import ReadBillsPage from "./pages/Bills/ReadBills.tsx";
@@ -5,7 +7,8 @@ import CadBillsPage from "./pages/Bills/CadBills.tsx";
 import LoginPage from "./pages/User/LoginPage.tsx";
 import RegisterPage from "./pages/User/RegisterPage.tsx";
 import DasboardsPage from "../src/pages/Dashboards/Dashboards.tsx"
-import { createBrowserRouter, RouterProvider, Navigate} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate, useLocation } from "react-router-dom";
+import PageTransition from "./components/ui/page-transition";
 import "./index.css";
 
 const PrivateRoute = ({ element }: { element: JSX.Element }) => {
@@ -14,9 +17,8 @@ const PrivateRoute = ({ element }: { element: JSX.Element }) => {
   if (!isAuthenticated) {
     return <Navigate to="/" />;
   }
-  return element;
+  return <PageTransition>{element}</PageTransition>;
 };
-
 
 function App() {
   const router = createBrowserRouter([
@@ -50,11 +52,10 @@ function App() {
     },
   ]);
 
-
   return (
-    <>
+    <AnimatePresence mode="wait">
       <RouterProvider router={router} />
-    </>
+    </AnimatePresence>
   );
 }
 
