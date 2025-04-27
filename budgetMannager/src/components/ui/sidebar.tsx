@@ -1,13 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import DasboardsPage from "../../pages/Dashboards/Dashboards.tsx";
-import ReadBudgetPage from "../../pages/Budget/ReadBudget.tsx";
-import ReadBillsPage from "../../pages/Bills/ReadBills.tsx";
+import { motion } from "framer-motion";
 import { HomeIcon, CurrencyDollarIcon, DocumentTextIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid';
+import DasboardsPage from "../../pages/Dashboards/Dashboards";
+import ReadBudgetPage from "../../pages/Budget/ReadBudget";
+import ReadBillsPage from "../../pages/Bills/ReadBills";
 
 interface MenuItem {
   title: string;
-  src: string;
+  icon: React.ElementType;
   path: string;
   element: React.ReactElement;
 }
@@ -18,9 +19,9 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const Menus: MenuItem[] = [
-    { title: "Dashboard", src: "Chart_fill", path: "/Dashboards", element: <DasboardsPage /> },
-    { title: "Budget", src: "budget", path: "/ReadBudget", element: <ReadBudgetPage /> },
-    { title: "Bills", src: "bills", path: "/ReadBills", element: <ReadBillsPage /> },
+    { title: "Dashboard", icon: HomeIcon, path: "/Dashboards", element: <DasboardsPage /> },
+    { title: "Budget", icon: CurrencyDollarIcon, path: "/ReadBudget", element: <ReadBudgetPage /> },
+    { title: "Bills", icon: DocumentTextIcon, path: "/ReadBills", element: <ReadBillsPage /> },
   ];
 
   const handleSignOut = () => {
@@ -28,90 +29,114 @@ const Sidebar = () => {
     navigate("/");
   };
 
-  return (
-    <div className="flex">
-      <div
-        className={`${
-          open ? "w-72" : "w-20"
-        } bg-gray-800 text-white h-screen p-6 pt-8 relative flex flex-col transition-all duration-300 ease-in-out shadow-md rounded-r-3xl`}
-      >
-        <button
-          aria-label="Toggle Sidebar"
-          className={`absolute cursor-pointer -right-3 top-9 w-8 h-8 border-2 border-white bg-gray-600 rounded-full transform transition-transform ${
-            !open ? "rotate-180" : ""
-          }`}
-          onClick={() => setOpen(!open)}
-        >
-          <img
-            src="./src/assets/control.png"
-            alt="Toggle Sidebar"
-            className="w-5 h-5 m-auto"
-          />
-        </button>
+  const sidebarVariants = {
+    open: {
+      width: "18rem",
+      transition: { duration: 0.3, ease: "easeInOut" }
+    },
+    closed: {
+      width: "5rem",
+      transition: { duration: 0.3, ease: "easeInOut" }
+    }
+  };
 
-        <div className="flex gap-x-4 items-center mb-8">
+  const textVariants = {
+    open: {
+      opacity: 1,
+      x: 0,
+      display: "block",
+      transition: { delay: 0.1, duration: 0.2 }
+    },
+    closed: {
+      opacity: 0,
+      x: -10,
+      transitionEnd: { display: "none" },
+      transition: { duration: 0.2 }
+    }
+  };
+
+  return (
+    <motion.div
+      initial="open"
+      animate={open ? "open" : "closed"}
+      variants={sidebarVariants}
+      className="bg-gray-800 text-white h-screen p-6 pt-8 relative flex flex-col shadow-md rounded-r-3xl"
+    >
+      <button
+        aria-label="Toggle Sidebar"
+        className="absolute cursor-pointer -right-3 top-9 w-8 h-8 border-2 border-white bg-gray-600 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors"
+        onClick={() => setOpen(!open)}
+      >
+        <motion.div
+          animate={{ rotate: open ? 0 : 180 }}
+          transition={{ duration: 0.3 }}
+        >
+          <ArrowRightOnRectangleIcon className="w-4 h-4" />
+        </motion.div>
+      </button>
+
+      <div className="flex items-center gap-4 mb-8">
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
           <img
             src="./src/assets/logo.png"
             alt="Logo"
-            className={`cursor-pointer transition-transform duration-500 ${open ? "rotate-[360deg]" : ""}`}
+            className="w-10 h-10"
           />
-          <h1
-            className={`text-2xl font-semibold origin-left transition-transform duration-200 ${
-              !open ? "scale-0" : "scale-100"
-            }`}
-          >
-            Budget Manager
-          </h1>
-        </div>
+        </motion.div>
+        <motion.h1
+          variants={textVariants}
+          className="text-2xl font-semibold whitespace-nowrap"
+        >
+          Budget Manager
+        </motion.h1>
+      </div>
 
-        <ul className="pt-6 flex-grow">
-          {Menus.map((menu, index) => {
+      <nav className="flex-1">
+        <ul className="space-y-2">
+          {Menus.map((menu) => {
+            const Icon = menu.icon;
             const isActive = location.pathname === menu.path;
-
+            
             return (
-              <li
-                key={index}
-                className={`flex items-center gap-x-4 rounded-md p-2 cursor-pointer hover:bg-gray-700 hover:text-white transition-colors duration-200 relative mt-6 ${
-                  isActive ? "bg-gray-600" : ""
-                }`}
+              <motion.li
+                key={menu.path}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <Link to={menu.path} className="flex items-center w-full">
-                  {menu.title === "Dashboard" && <HomeIcon className="w-6 h-6 text-white" />}
-                  {menu.title === "Budget" && <CurrencyDollarIcon className="w-6 h-6 text-white" />}
-                  {menu.title === "Bills" && <DocumentTextIcon className="w-6 h-6 text-white" />}
-
-                  <span
-                    className={`ml-4 text-lg font-medium transition-all duration-200 ${!open ? "hidden" : ""}`}
-                  >
-                    {menu.title}
-                  </span>
-                </Link>
-
-                <span
-                  className={`absolute top-0 left-0 w-1 h-full bg-gray-500 rounded-l-md transform transition-all duration-300 ease-in-out ${
-                    isActive ? "scale-100" : "scale-0"
+                <Link
+                  to={menu.path}
+                  className={`flex items-center gap-4 p-3 rounded-lg transition-colors ${
+                    isActive
+                      ? "bg-indigo-600 text-white"
+                      : "hover:bg-gray-700 text-gray-300"
                   }`}
-                ></span>
-              </li>
+                >
+                  <Icon className="w-6 h-6 shrink-0" />
+                  <motion.span variants={textVariants} className="whitespace-nowrap">
+                    {menu.title}
+                  </motion.span>
+                </Link>
+              </motion.li>
             );
           })}
         </ul>
+      </nav>
 
-        <div className="mt-auto">
-          <button
-            onClick={handleSignOut}
-            className="flex items-center gap-x-4 w-full p-2 mt-6 text-white hover:bg-red-600 hover:text-white rounded-md transition-colors duration-200"
-          >
-            <ArrowRightOnRectangleIcon className="w-6 h-6 text-white" />
-            {open && (
-              <span className="ml-4 text-lg font-medium transition-all duration-200">
-                Sign Out
-              </span>
-            )}
-          </button>
-        </div>
-      </div>
-    </div>
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={handleSignOut}
+        className="flex items-center gap-4 p-3 mt-6 rounded-lg hover:bg-gray-700 text-gray-300 transition-colors"
+      >
+        <ArrowRightOnRectangleIcon className="w-6 h-6" />
+        <motion.span variants={textVariants} className="whitespace-nowrap">
+          Sign Out
+        </motion.span>
+      </motion.button>
+    </motion.div>
   );
 };
 
