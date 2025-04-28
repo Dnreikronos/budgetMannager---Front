@@ -56,17 +56,17 @@ const CadBudget = () => {
 
 
 	return (
-		<div className="flex h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
+		<div className="flex h-screen bg-white dark:bg-black text-black dark:text-white">
 			<Sidebar />
 
 			<div className="flex-1 flex items-center justify-center p-6">
-				<div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
-					<h1 className="text-2xl font-bold text-gray-800 text-center">
+				<div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg max-w-md w-full p-6">
+					<h1 className="text-2xl font-bold text-black dark:text-white text-center">
 						Register a New Budget
 					</h1>
 
 					{error && (
-						<div className="text-red-600 bg-red-100 p-3 rounded-md text-sm mt-4" aria-live="polite">
+						<div className="text-red-600 dark:text-red-300 bg-red-100 dark:bg-red-900 p-3 rounded-md text-sm mt-4" aria-live="polite">
 							{error}
 						</div>
 					)}
@@ -75,7 +75,7 @@ const CadBudget = () => {
 						<div>
 							<label
 								htmlFor="value"
-								className="block text-sm font-medium text-gray-700"
+								className="block text-sm font-medium text-black dark:text-white"
 							>
 								Value
 							</label>
@@ -85,7 +85,7 @@ const CadBudget = () => {
 								value={value}
 								onChange={(e) => setValue(e.target.value)}
 								placeholder="Enter value"
-								className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+								className="mt-1 block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-black dark:text-white border-gray-300 dark:border-gray-700"
 								required
 							/>
 						</div>
@@ -93,7 +93,7 @@ const CadBudget = () => {
 						<div>
 							<label
 								htmlFor="currency"
-								className="block text-sm font-medium text-gray-700"
+								className="block text-sm font-medium text-black dark:text-white"
 							>
 								Currency
 							</label>
@@ -103,7 +103,7 @@ const CadBudget = () => {
 								value={currency}
 								onChange={(e) => setCurrency(e.target.value)}
 								placeholder="Enter currency (e.g., USD)"
-								className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+								className="mt-1 block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-black dark:text-white border-gray-300 dark:border-gray-700"
 								required
 							/>
 						</div>
@@ -111,7 +111,7 @@ const CadBudget = () => {
 						<div>
 							<label
 								htmlFor="start"
-								className="block text-sm font-medium text-gray-700"
+								className="block text-sm font-medium text-black dark:text-white"
 							>
 								Start Date
 							</label>
@@ -120,7 +120,7 @@ const CadBudget = () => {
 								type="date"
 								value={start}
 								onChange={(e) => setStart(e.target.value)}
-								className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+								className="mt-1 block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-black dark:text-white border-gray-300 dark:border-gray-700"
 								required
 							/>
 						</div>
@@ -128,7 +128,7 @@ const CadBudget = () => {
 						<div>
 							<label
 								htmlFor="end"
-								className="block text-sm font-medium text-gray-700"
+								className="block text-sm font-medium text-black dark:text-white"
 							>
 								End Date
 							</label>
@@ -137,7 +137,7 @@ const CadBudget = () => {
 								type="date"
 								value={end}
 								onChange={(e) => setEnd(e.target.value)}
-								className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+								className="mt-1 block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-black dark:text-white border-gray-300 dark:border-gray-700"
 								required
 							/>
 						</div>
@@ -148,7 +148,7 @@ const CadBudget = () => {
 								disabled={loading}
 								className={`w-full px-4 py-2 font-medium text-white rounded ${loading
 									? "bg-gray-400 cursor-not-allowed"
-									: "bg-indigo-600 hover:bg-indigo-700 transition duration-150"
+									: "bg-indigo-600 dark:bg-indigo-500 hover:bg-indigo-700 dark:hover:bg-indigo-600 transition duration-150"
 									}`}
 							>
 								{loading ? "Saving..." : "Save Budget"}
