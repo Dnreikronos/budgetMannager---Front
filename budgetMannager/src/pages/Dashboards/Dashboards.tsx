@@ -19,6 +19,7 @@ type Bills = {
 	value: number;
 	category: string;
 	status: string;
+	budget_id: string;
 };
 
 const DashboardsPage = () => {
@@ -26,6 +27,10 @@ const DashboardsPage = () => {
 	const [bills, setBills] = useState<Bills[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
+	const [startDate, setStartDate] = useState<string>("");
+	const [endDate, setEndDate] = useState<string>("");
+	const [filteredBudgets, setFilteredBudgets] = useState<Budget[]>([]);
+	const [filteredBills, setFilteredBills] = useState<Bills[]>([]);
 
 	useEffect(() => {
 		Promise.all([
@@ -39,7 +44,9 @@ const DashboardsPage = () => {
 					end: formatDate(budget.end),
 				}));
 				setBudgets(formattedBudgets);
+				setFilteredBudgets(formattedBudgets);
 				setBills(billData.Bills || []);
+				setFilteredBills(billData.Bills || []);
 			})
 			.catch((error) => setError(error.message))
 			.finally(() => setLoading(false));
@@ -50,7 +57,45 @@ const DashboardsPage = () => {
 		return isNaN(date.getTime()) ? dateString : date.toISOString().split("T")[0];
 	};
 
-	const currencyDistribution = budgets.reduce((acc: any, budget: any) => {
+	const handleDateFilter = () => {
+		if (!startDate && !endDate) {
+			setFilteredBudgets(budgets);
+			setFilteredBills(bills);
+			return;
+		}
+
+		const start = startDate ? new Date(startDate) : new Date(0);
+		const end = endDate ? new Date(endDate) : new Date(8640000000000000);
+
+		const filteredBudgets = budgets.filter((budget) => {
+			const budgetStart = new Date(budget.start);
+			const budgetEnd = new Date(budget.end);
+			return (
+				(budgetStart >= start && budgetStart <= end) ||
+				(budgetEnd >= start && budgetEnd <= end) ||
+				(budgetStart <= start && budgetEnd >= end)
+			);
+		});
+
+		setFilteredBudgets(filteredBudgets);
+
+		// Filter bills based on the filtered budgets' IDs
+		const filteredBudgetIds = new Set(filteredBudgets.map(budget => budget.id));
+		const filteredBills = bills.filter(bill => {
+			// Assuming each bill has a budget_id field
+			return filteredBudgetIds.has(bill.budget_id);
+		});
+		setFilteredBills(filteredBills);
+	};
+
+	const resetFilters = () => {
+		setStartDate("");
+		setEndDate("");
+		setFilteredBudgets(budgets);
+		setFilteredBills(bills);
+	};
+
+	const currencyDistribution = filteredBudgets.reduce((acc: any, budget: any) => {
 		acc[budget.currency] = (acc[budget.currency] || 0) + budget.value;
 		return acc;
 	}, {});
@@ -68,7 +113,7 @@ const DashboardsPage = () => {
 		],
 	};
 
-	const categoryDistribution = bills.reduce((acc: any, bill: any) => {
+	const categoryDistribution = filteredBills.reduce((acc: any, bill: any) => {
 		acc[bill.category] = (acc[bill.category] || 0) + bill.value;
 		return acc;
 	}, {});
@@ -86,7 +131,7 @@ const DashboardsPage = () => {
 		],
 	};
 
-	const billStatusDistribution = bills.reduce((acc: any, bill: any) => {
+	const billStatusDistribution = filteredBills.reduce((acc: any, bill: any) => {
 		acc[bill.status] = (acc[bill.status] || 0) + 1;
 		return acc;
 	}, {});
@@ -142,26 +187,69 @@ const DashboardsPage = () => {
 					initial={{ opacity: 0, y: -20 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.5 }}
-					className="flex justify-between items-center mb-6"
+					className="flex flex-col space-y-4 mb-6"
 				>
-					<h1 className="text-3xl font-extrabold text-black dark:text-white">📊 Dashboard Overview</h1>
+					<div className="flex justify-between items-center">
+						<h1 className="text-3xl font-extrabold text-black dark:text-white">📊 Dashboard Overview</h1>
+					</div>
+
+					<div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-4">
+						<div className="flex flex-wrap gap-4 items-end">
+							<div className="flex-1 min-w-[200px]">
+								<label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+									Start Date
+								</label>
+								<input
+									type="date"
+									value={startDate}
+									onChange={(e) => setStartDate(e.target.value)}
+									className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-black dark:text-white border-gray-300 dark:border-gray-700"
+								/>
+							</div>
+							<div className="flex-1 min-w-[200px]">
+								<label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+									End Date
+								</label>
+								<input
+									type="date"
+									value={endDate}
+									onChange={(e) => setEndDate(e.target.value)}
+									className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-black dark:text-white border-gray-300 dark:border-gray-700"
+								/>
+							</div>
+							<div className="flex gap-2">
+								<button
+									onClick={handleDateFilter}
+									className="px-4 py-2 bg-indigo-600 dark:bg-indigo-500 text-white font-medium rounded-lg shadow-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors"
+								>
+									Apply Filter
+								</button>
+								<button
+									onClick={resetFilters}
+									className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium rounded-lg shadow-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+								>
+									Reset
+								</button>
+							</div>
+						</div>
+					</div>
 				</motion.div>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
 					<AnimatedCard delay={0.1} className="bg-white dark:bg-gray-900 text-black dark:text-white">
 						<h2 className="text-lg font-semibold mb-2">Total Budgets</h2>
-						<p className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">{budgets.length}</p>
+						<p className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">{filteredBudgets.length}</p>
 					</AnimatedCard>
 
 					<AnimatedCard delay={0.2} className="bg-white dark:bg-gray-900 text-black dark:text-white">
 						<h2 className="text-lg font-semibold mb-2">Total Bills</h2>
-						<p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">{bills.length}</p>
+						<p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">{filteredBills.length}</p>
 					</AnimatedCard>
 
 					<AnimatedCard delay={0.3} className="bg-white dark:bg-gray-900 text-black dark:text-white">
 						<h2 className="text-lg font-semibold mb-2">Pending Bills</h2>
 						<p className="text-3xl font-bold text-amber-600 dark:text-amber-400">
-							{bills.filter((bill) => bill.status === "pending").length}
+							{filteredBills.filter((bill) => bill.status === "pending").length}
 						</p>
 					</AnimatedCard>
 				</div>
@@ -192,7 +280,7 @@ const DashboardsPage = () => {
 					<div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6">
 						<h2 className="text-2xl font-bold text-black dark:text-white mb-4">Budget Details</h2>
 						<DataTable
-							data={budgets}
+							data={filteredBudgets}
 							columns={[
 								{ accessorKey: "value", header: "Value" },
 								{ accessorKey: "currency", header: "Currency" },
@@ -206,7 +294,7 @@ const DashboardsPage = () => {
 					<div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6">
 						<h2 className="text-2xl font-bold text-black dark:text-white mb-4">Bill Details</h2>
 						<DataTable
-							data={bills}
+							data={filteredBills}
 							columns={[
 								{ accessorKey: "value", header: "Value" },
 								{ accessorKey: "category", header: "Category" },
