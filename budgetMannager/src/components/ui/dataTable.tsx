@@ -74,17 +74,17 @@ export default function DataTable<TData>({
       initial="hidden"
       animate="visible"
       variants={tableVariants}
-      className="rounded-md border"
+      className="rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-black dark:text-white"
     >
       <div className="relative w-full overflow-auto">
         <table className="w-full caption-bottom text-sm">
-          <thead className="border-b bg-gray-50/50">
+          <thead className="border-b bg-gray-50 dark:bg-gray-800">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="h-12 px-4 text-left align-middle font-medium text-gray-500 [&:has([role=checkbox])]:pr-0"
+                    className="h-12 px-4 text-left align-middle font-medium text-gray-500 dark:text-gray-300 [&:has([role=checkbox])]:pr-0"
                   >
                     {header.isPlaceholder
                       ? null
@@ -106,7 +106,7 @@ export default function DataTable<TData>({
                   initial="hidden"
                   animate="visible"
                   exit="exit"
-                  className="border-b transition-colors hover:bg-gray-50/50 data-[state=selected]:bg-gray-50"
+                  className="border-b transition-colors hover:bg-gray-50 dark:hover:bg-gray-800 data-[state=selected]:bg-gray-50 dark:data-[state=selected]:bg-gray-800"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <td
@@ -138,7 +138,7 @@ export default function DataTable<TData>({
               whileTap={{ scale: 0.95 }}
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
-              className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors bg-white border rounded-md hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50"
+              className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-black dark:text-white border border-gray-300 dark:border-gray-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 disabled:pointer-events-none disabled:opacity-50"
             >
               Previous
             </motion.button>
@@ -147,7 +147,7 @@ export default function DataTable<TData>({
               whileTap={{ scale: 0.95 }}
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
-              className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors bg-white border rounded-md hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50"
+              className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-black dark:text-white border border-gray-300 dark:border-gray-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 disabled:pointer-events-none disabled:opacity-50"
             >
               Next
             </motion.button>

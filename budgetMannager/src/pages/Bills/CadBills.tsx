@@ -66,17 +66,17 @@ const CadBills = () => {
 	};
 
 	return (
-		<div className="flex h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
+		<div className="flex h-screen bg-white dark:bg-black text-black dark:text-white">
 			<Sidebar />
 
 			<div className="flex-1 flex items-center justify-center p-6">
-				<div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
-					<h1 className="text-2xl font-bold text-gray-800 text-center">
+				<div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg max-w-md w-full p-6">
+					<h1 className="text-2xl font-bold text-black dark:text-white text-center">
 						Register a New Bill
 					</h1>
 
 					{error && (
-						<div className="text-red-600 bg-red-100 p-3 rounded-md text-sm mt-4" aria-live="polite">
+						<div className="text-red-600 dark:text-red-300 bg-red-100 dark:bg-red-900 p-3 rounded-md text-sm mt-4" aria-live="polite">
 							{error}
 						</div>
 					)}
@@ -85,7 +85,7 @@ const CadBills = () => {
 						<div>
 							<label
 								htmlFor="value"
-								className="block text-sm font-medium text-gray-700"
+								className="block text-sm font-medium text-black dark:text-white"
 							>
 								Value
 							</label>
@@ -95,7 +95,7 @@ const CadBills = () => {
 								value={value}
 								onChange={(e) => setValue(e.target.value)}
 								placeholder="Enter value"
-								className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+								className="mt-1 block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-black dark:text-white border-gray-300 dark:border-gray-700"
 								required
 							/>
 						</div>
@@ -103,7 +103,7 @@ const CadBills = () => {
 						<div>
 							<label
 								htmlFor="category"
-								className="block text-sm font-medium text-gray-700"
+								className="block text-sm font-medium text-black dark:text-white"
 							>
 								Category
 							</label>
@@ -113,21 +113,20 @@ const CadBills = () => {
 								value={category}
 								onChange={(e) => setCategory(e.target.value)}
 								placeholder="Enter category"
-								className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+								className="mt-1 block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-black dark:text-white border-gray-300 dark:border-gray-700"
 								required
 							/>
 						</div>
 
-
 						<div>
-							<label htmlFor="budget" className="block text-sm font-medium text-gray-700">
+							<label htmlFor="budget" className="block text-sm font-medium text-black dark:text-white">
 								Budget
 							</label>
 							<select
 								id="budget"
 								value={selectedBudget}
 								onChange={(e) => setSelectedBudget(e.target.value)}
-								className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+								className="mt-1 block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-black dark:text-white border-gray-300 dark:border-gray-700"
 								required
 							>
 								<option value="" disabled>Select a budget</option>
@@ -142,7 +141,7 @@ const CadBills = () => {
 						<div>
 							<label
 								htmlFor="status"
-								className="block text-sm font-medium text-gray-700"
+								className="block text-sm font-medium text-black dark:text-white"
 							>
 								Status
 							</label>
@@ -150,7 +149,7 @@ const CadBills = () => {
 								id="status"
 								value={status}
 								onChange={(e) => setStatus(e.target.value)}
-								className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+								className="mt-1 block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-black dark:text-white border-gray-300 dark:border-gray-700"
 							>
 								<option value="pending">Pending</option>
 								<option value="paid">Paid</option>
@@ -162,10 +161,7 @@ const CadBills = () => {
 							<button
 								type="submit"
 								disabled={loading}
-								className={`w-full px-4 py-2 font-medium text-white rounded ${loading
-									? "bg-gray-400 cursor-not-allowed"
-									: "bg-indigo-600 hover:bg-indigo-700 transition duration-150"
-									}`}
+								className={`w-full bg-indigo-600 dark:bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-500 rounded-md px-4 py-2 mt-4 ${loading ? "cursor-not-allowed" : ""}`}
 							>
 								{loading ? "Saving..." : "Save Bill"}
 							</button>
@@ -173,7 +169,7 @@ const CadBills = () => {
 							<button
 								type="button"
 								onClick={handleCancel}
-								className="w-full px-4 py-2 font-medium text-gray-700 border border-gray-300 rounded hover:bg-gray-100 transition duration-150"
+								className="w-full bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-md px-4 py-2 mt-4 hover:bg-gray-300 dark:hover:bg-gray-600"
 							>
 								Cancel
 							</button>

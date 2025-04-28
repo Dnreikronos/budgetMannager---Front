@@ -15,7 +15,7 @@ const AnimatedCard = ({ children, className, delay = 0, ...props }: AnimatedCard
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
       className={cn(
-        "bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow",
+        "bg-white dark:bg-gray-900 text-black dark:text-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow",
         className
       )}
       {...props}
