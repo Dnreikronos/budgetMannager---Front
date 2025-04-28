@@ -116,12 +116,12 @@ const DashboardsPage = () => {
 
 	if (error) {
 		return (
-			<div className="flex h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
+			<div className="flex h-screen bg-white dark:bg-black text-black dark:text-white">
 				<Sidebar />
 				<div className="flex-1 p-6 flex items-center justify-center">
-					<AnimatedCard className="bg-red-50 border-red-200">
-						<h2 className="text-xl font-semibold text-red-700">Error</h2>
-						<p className="text-red-600 mt-2">{error}</p>
+					<AnimatedCard className="bg-red-50 dark:bg-red-900 border-red-200 dark:border-red-700">
+						<h2 className="text-xl font-semibold text-red-700 dark:text-red-200">Error</h2>
+						<p className="text-red-600 dark:text-red-300 mt-2">{error}</p>
 					</AnimatedCard>
 				</div>
 			</div>
@@ -129,7 +129,7 @@ const DashboardsPage = () => {
 	}
 
 	return (
-		<div className="flex h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
+		<div className="flex h-screen bg-white dark:bg-black text-black dark:text-white">
 			<Sidebar />
 
 			<motion.div
@@ -144,23 +144,23 @@ const DashboardsPage = () => {
 					transition={{ duration: 0.5 }}
 					className="flex justify-between items-center mb-6"
 				>
-					<h1 className="text-3xl font-extrabold text-gray-800">📊 Dashboard Overview</h1>
+					<h1 className="text-3xl font-extrabold text-black dark:text-white">📊 Dashboard Overview</h1>
 				</motion.div>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-					<AnimatedCard delay={0.1}>
+					<AnimatedCard delay={0.1} className="bg-white dark:bg-gray-900 text-black dark:text-white">
 						<h2 className="text-lg font-semibold mb-2">Total Budgets</h2>
-						<p className="text-3xl font-bold text-indigo-600">{budgets.length}</p>
+						<p className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">{budgets.length}</p>
 					</AnimatedCard>
 
-					<AnimatedCard delay={0.2}>
+					<AnimatedCard delay={0.2} className="bg-white dark:bg-gray-900 text-black dark:text-white">
 						<h2 className="text-lg font-semibold mb-2">Total Bills</h2>
-						<p className="text-3xl font-bold text-emerald-600">{bills.length}</p>
+						<p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">{bills.length}</p>
 					</AnimatedCard>
 
-					<AnimatedCard delay={0.3}>
+					<AnimatedCard delay={0.3} className="bg-white dark:bg-gray-900 text-black dark:text-white">
 						<h2 className="text-lg font-semibold mb-2">Pending Bills</h2>
-						<p className="text-3xl font-bold text-amber-600">
+						<p className="text-3xl font-bold text-amber-600 dark:text-amber-400">
 							{bills.filter((bill) => bill.status === "pending").length}
 						</p>
 					</AnimatedCard>
@@ -169,13 +169,13 @@ const DashboardsPage = () => {
 				<div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
 					{loading ? (
 						<>
-							<AnimatedCard>
+							<AnimatedCard className="bg-white dark:bg-gray-900" >
 								<TableSkeleton rows={5} columns={3} />
 							</AnimatedCard>
-							<AnimatedCard>
+							<AnimatedCard className="bg-white dark:bg-gray-900" >
 								<TableSkeleton rows={5} columns={3} />
 							</AnimatedCard>
-							<AnimatedCard>
+							<AnimatedCard className="bg-white dark:bg-gray-900" >
 								<TableSkeleton rows={5} columns={3} />
 							</AnimatedCard>
 						</>
@@ -189,8 +189,8 @@ const DashboardsPage = () => {
 				</div>
 
 				<div className="space-y-6">
-					<div className="bg-white rounded-lg shadow-lg p-6">
-						<h2 className="text-2xl font-bold text-gray-800 mb-4">Budget Details</h2>
+					<div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6">
+						<h2 className="text-2xl font-bold text-black dark:text-white mb-4">Budget Details</h2>
 						<DataTable
 							data={budgets}
 							columns={[
@@ -203,8 +203,8 @@ const DashboardsPage = () => {
 						/>
 					</div>
 
-					<div className="bg-white rounded-lg shadow-lg p-6">
-						<h2 className="text-2xl font-bold text-gray-800 mb-4">Bill Details</h2>
+					<div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6">
+						<h2 className="text-2xl font-bold text-black dark:text-white mb-4">Bill Details</h2>
 						<DataTable
 							data={bills}
 							columns={[
