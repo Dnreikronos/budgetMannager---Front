@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { HomeIcon, CurrencyDollarIcon, DocumentTextIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid';
+import { HomeIcon, CurrencyDollarIcon, DocumentTextIcon, ArrowRightOnRectangleIcon, SunIcon, MoonIcon } from '@heroicons/react/24/solid';
 import DasboardsPage from "../../pages/Dashboards/Dashboards";
 import ReadBudgetPage from "../../pages/Budget/ReadBudget";
 import ReadBillsPage from "../../pages/Bills/ReadBills";
+import { useTheme } from "../../context/ThemeContext";
 
 interface MenuItem {
   title: string;
@@ -17,6 +18,7 @@ const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
 
   const Menus: MenuItem[] = [
     { title: "Dashboard", icon: HomeIcon, path: "/Dashboards", element: <DasboardsPage /> },
@@ -60,11 +62,11 @@ const Sidebar = () => {
       initial="open"
       animate={open ? "open" : "closed"}
       variants={sidebarVariants}
-      className="bg-gray-800 text-white h-screen p-6 pt-8 relative flex flex-col shadow-md rounded-r-3xl"
+      className="bg-white dark:bg-black text-black dark:text-white h-screen p-6 pt-8 relative flex flex-col shadow-md rounded-r-3xl"
     >
       <button
         aria-label="Toggle Sidebar"
-        className="absolute cursor-pointer -right-3 top-9 w-8 h-8 border-2 border-white bg-gray-600 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors"
+        className="absolute cursor-pointer -right-3 top-9 w-8 h-8 border-2 border-black dark:border-white bg-gray-200 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
         onClick={() => setOpen(!open)}
       >
         <motion.div
@@ -110,8 +112,8 @@ const Sidebar = () => {
                   to={menu.path}
                   className={`flex items-center gap-4 p-3 rounded-lg transition-colors ${
                     isActive
-                      ? "bg-indigo-600 text-white"
-                      : "hover:bg-gray-700 text-gray-300"
+                      ? "bg-indigo-600 text-white dark:bg-indigo-500 dark:text-white"
+                      : "hover:bg-gray-200 hover:text-black dark:hover:bg-gray-700 dark:hover:text-white text-black dark:text-white"
                   }`}
                 >
                   <Icon className="w-6 h-6 shrink-0" />
@@ -125,17 +127,35 @@ const Sidebar = () => {
         </ul>
       </nav>
 
-      <motion.button
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        onClick={handleSignOut}
-        className="flex items-center gap-4 p-3 mt-6 rounded-lg hover:bg-gray-700 text-gray-300 transition-colors"
-      >
-        <ArrowRightOnRectangleIcon className="w-6 h-6" />
-        <motion.span variants={textVariants} className="whitespace-nowrap">
-          Sign Out
-        </motion.span>
-      </motion.button>
+      <div className="space-y-2">
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={toggleTheme}
+          className="flex items-center gap-4 p-3 rounded-lg hover:bg-gray-200 hover:text-black dark:hover:bg-gray-700 dark:hover:text-white text-black dark:text-white transition-colors w-full"
+        >
+          {theme === 'dark' ? (
+            <SunIcon className="w-6 h-6" />
+          ) : (
+            <MoonIcon className="w-6 h-6" />
+          )}
+          <motion.span variants={textVariants} className="whitespace-nowrap">
+            {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+          </motion.span>
+        </motion.button>
+
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={handleSignOut}
+          className="flex items-center gap-4 p-3 rounded-lg hover:bg-gray-200 hover:text-black dark:hover:bg-gray-700 dark:hover:text-white text-black dark:text-white transition-colors w-full"
+        >
+          <ArrowRightOnRectangleIcon className="w-6 h-6" />
+          <motion.span variants={textVariants} className="whitespace-nowrap">
+            Sign Out
+          </motion.span>
+        </motion.button>
+      </div>
     </motion.div>
   );
 };
