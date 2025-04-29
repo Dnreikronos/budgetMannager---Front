@@ -138,15 +138,15 @@ const ReadBillsPage = () => {
 	};
 
 	return (
-		<div className="flex h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
+		<div className="flex h-screen bg-white dark:bg-black text-black dark:text-white">
 			<Sidebar />
 
 			<div className="flex-1 p-6 flex flex-col justify-center items-center">
 				<div className="flex justify-between items-center mb-6 w-full max-w-5xl">
-					<h1 className="text-3xl font-extrabold text-gray-800">📊 Bills List</h1>
+					<h1 className="text-3xl font-extrabold text-black dark:text-white">📊 Bills List</h1>
 					<button
 						onClick={() => navigate("/CadBills")}
-						className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg shadow-lg hover:bg-indigo-700 hover:scale-105 transition-transform duration-200"
+						className="px-4 py-2 bg-indigo-600 dark:bg-indigo-500 text-white font-medium rounded-lg shadow-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 hover:scale-105 transition-transform duration-200"
 					>
 						+ Add Bill
 					</button>
@@ -158,11 +158,11 @@ const ReadBillsPage = () => {
 						placeholder="Search bills..."
 						value={search}
 						onChange={handleSearch}
-						className="px-4 py-2 border rounded-md shadow-sm w-full focus:ring focus:ring-indigo-200"
+						className="px-4 py-2 border rounded-md shadow-sm w-full focus:ring focus:ring-indigo-200 bg-white dark:bg-gray-900 text-black dark:text-white border-gray-300 dark:border-gray-700"
 					/>
 				</div>
 
-				<div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl">
+				<div className="bg-white dark:bg-gray-900 shadow-lg rounded-lg p-6 w-full max-w-5xl">
 					{loading ? (
 						<p>Loading...</p>
 					) : error ? (
@@ -177,7 +177,7 @@ const ReadBillsPage = () => {
 								<button
 									onClick={() => handlePageChange(currentPage - 1)}
 									disabled={currentPage === 1}
-									className="bg-indigo-600 text-white px-4 py-2 rounded disabled:bg-gray-300"
+									className="bg-indigo-600 dark:bg-indigo-500 text-white px-4 py-2 rounded disabled:bg-gray-300 dark:disabled:bg-gray-700"
 								>
 									Previous
 								</button>
@@ -187,7 +187,7 @@ const ReadBillsPage = () => {
 								<button
 									onClick={() => handlePageChange(currentPage + 1)}
 									disabled={currentPage === totalPages}
-									className="bg-indigo-600 text-white px-4 py-2 rounded disabled:bg-gray-300"
+									className="bg-indigo-600 dark:bg-indigo-500 text-white px-4 py-2 rounded disabled:bg-gray-300 dark:disabled:bg-gray-700"
 								>
 									Next
 								</button>
