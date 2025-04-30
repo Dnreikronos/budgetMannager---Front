@@ -151,11 +151,10 @@ const CadBudget = () => {
 							<button
 								type="submit"
 								disabled={loading}
-								className={`w-full px-4 py-2 font-medium text-white rounded-lg shadow-lg transition-all duration-200 ${
-									loading
+								className={`w-full px-4 py-2 font-medium text-white rounded-lg shadow-lg transition-all duration-200 ${loading
 										? "bg-gray-400 cursor-not-allowed"
 										: "bg-indigo-600 dark:bg-indigo-500 hover:bg-indigo-700 dark:hover:bg-indigo-600 hover:scale-105"
-								}`}
+									}`}
 							>
 								{loading ? (
 									<span className="flex items-center justify-center">

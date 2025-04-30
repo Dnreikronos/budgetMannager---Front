@@ -28,8 +28,8 @@ const Chart: React.FC<ChartProps> = ({ type, data, options, title }) => {
 
 	const cardVariants = {
 		hidden: { opacity: 0, y: 20 },
-		visible: { 
-			opacity: 1, 
+		visible: {
+			opacity: 1,
 			y: 0,
 			transition: {
 				duration: 0.6,
@@ -40,8 +40,8 @@ const Chart: React.FC<ChartProps> = ({ type, data, options, title }) => {
 
 	const chartVariants = {
 		hidden: { scale: 0.8, opacity: 0 },
-		visible: { 
-			scale: 1, 
+		visible: {
+			scale: 1,
 			opacity: 1,
 			transition: {
 				delay: 0.2,
@@ -66,8 +66,8 @@ const Chart: React.FC<ChartProps> = ({ type, data, options, title }) => {
 						variants={chartVariants}
 						className="w-full h-full min-h-[300px] flex items-center justify-center"
 					>
-						<ChartComponent 
-							data={data} 
+						<ChartComponent
+							data={data}
 							options={{
 								responsive: true,
 								maintainAspectRatio: false,
@@ -82,7 +82,7 @@ const Chart: React.FC<ChartProps> = ({ type, data, options, title }) => {
 									},
 								},
 								...options,
-							}} 
+							}}
 						/>
 					</motion.div>
 				</CardContent>
