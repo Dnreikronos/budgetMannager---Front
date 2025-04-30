@@ -79,10 +79,8 @@ const DashboardsPage = () => {
 
 		setFilteredBudgets(filteredBudgets);
 
-		// Filter bills based on the filtered budgets' IDs
 		const filteredBudgetIds = new Set(filteredBudgets.map(budget => budget.id));
 		const filteredBills = bills.filter(bill => {
-			// Assuming each bill has a budget_id field
 			return filteredBudgetIds.has(bill.budget_id);
 		});
 		setFilteredBills(filteredBills);
