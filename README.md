@@ -76,8 +76,10 @@ cd budgetmanager
     </section>
 </body>
 
-<img src="./budgetMannager/src/assets/bills_screen.png" alt="Bills Screen">
-<img src="./budgetMannager/src/assets/budget_screen.png" alt="Budget Screen">
-<img src="./budgetMannager/src/assets/dashboard_screen.png" alt="Dashboard Screen">
+![image](https://github.com/user-attachments/assets/cb884018-7100-4c87-b789-d58aaf90fcf9)
+![image](https://github.com/user-attachments/assets/3776dd6e-bab5-40c4-8c03-d6619979f818)
+![image](https://github.com/user-attachments/assets/f847d0f1-7abb-44af-b494-bf8681311886)
+![image](https://github.com/user-attachments/assets/50cdd75b-8830-40c4-a58c-1fa6edd93695)
+
 </html>
 
